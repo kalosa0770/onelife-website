@@ -1,26 +1,51 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Colors */
+  --color-background: #FAFAF8;
+  --color-foreground: #2B2B2D;
+  --color-onelife-red: #ED1C24;
+  --color-charcoal: #6E6E70;
+  --color-slate-grey: var(--slate-grey);
+  --color-warm-white: #FFFFFF;
+  
+  --color-impex-blue: #1B3A5C;
+  --color-sws-rose: #D6336C;
+  --color-oti-gold: #C9A961;
+
+  /* Fonts (Mapped from Next.js font variables in layout.tsx) */
+  --font-heading: var(--font-poppins), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Global Document Defaults */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Typography defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--foreground);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Global Selection Highlight */
+::selection {
+  background-color: var(--onelife-red);
+  color: var(--pure-white);
 }
