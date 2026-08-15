@@ -95,9 +95,9 @@ export const Leadership = () => {
           <div className="absolute -bottom-6 -left-2 sm:left-4 w-32 sm:w-48 h-32 sm:h-48 bg-onelife-red rounded-lg z-0" />
 
           {/* Main Portrait / Leadership Image */}
-          <div className="relative z-10 w-full max-w-md h-[420px] sm:h-[480px] rounded-lg overflow-hidden shadow-2xl border border-charcoal/10 bg-charcoal">
+          <div className="relative z-10 w-full max-w-md h-[420px] sm:h-[480px] overflow-hidden">
             <Image
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop"
+              src="/maria.png"
               alt="Maria Masiri - Lead Strategist & Founder, OneLife"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
