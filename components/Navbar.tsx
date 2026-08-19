@@ -311,7 +311,7 @@ export const Navbar = () => {
               href="#contact" 
               className="bg-onelife-red hover:bg-[#d1171e] text-white font-heading font-semibold text-xs uppercase tracking-wider px-6 py-3 rounded shadow-sm hover:shadow-md transition-all duration-200"
             >
-              Initiate Brief
+              Reach Out
             </Link>
           </div>
 
@@ -455,7 +455,7 @@ export const Navbar = () => {
                   onClick={() => setMobileMenuOpen(false)}
                   className="block text-center bg-onelife-red hover:bg-[#d1171e] text-white py-3.5 rounded uppercase tracking-wider text-xs font-semibold font-heading transition-colors"
                 >
-                  Initiate Brief
+                  Reach Out
                 </Link>
                 <div className="flex items-center justify-center gap-2 mt-4 text-[11px] text-slate-grey">
                   <MapPin className="w-3 h-3 text-onelife-red" />
