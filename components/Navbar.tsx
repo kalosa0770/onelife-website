@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   MapPin, 
@@ -46,10 +47,19 @@ const PLATFORMS = [
 ];
 
 export const Navbar = () => {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [platformDropdownOpen, setPlatformDropdownOpen] = useState(false);
   const [mobilePlatformsOpen, setMobilePlatformsOpen] = useState(false);
   const platformDropdownRef = useRef<HTMLDivElement>(null);
+
+  // A link is "active" on an exact match for Home ("/"), and on an exact
+  // match or nested-route match for everything else (e.g. /capabilities#events
+  // or /capabilities/some-slug should still highlight "Capabilities").
+  const isLinkActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname?.startsWith(`${href}/`);
+  };
 
   // Lock body scroll while the mobile drawer is open
   useEffect(() => {
@@ -201,20 +211,35 @@ export const Navbar = () => {
 
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center gap-8 font-heading text-[13px] font-semibold text-charcoal tracking-wider uppercase">
-            <Link href="/" className="relative text-onelife-red transition-colors py-2">
+            <Link 
+              href="/" 
+              className={`relative py-2 transition-colors ${
+                isLinkActive("/") ? "text-onelife-red" : "text-charcoal/80 hover:text-onelife-red"
+              }`}
+            >
               Home
-              <span className="absolute left-0 -bottom-[1px] w-full h-[2px] bg-onelife-red rounded-full" />
+              {isLinkActive("/") && (
+                <span className="absolute left-0 -bottom-[1px] w-full h-[2px] bg-onelife-red rounded-full" />
+              )}
             </Link>
             
-            {NAV_LINKS.slice(0, 2).map(({ href, label }) => (
-              <Link 
-                key={href} 
-                href={href} 
-                className="relative py-2 text-charcoal/80 hover:text-onelife-red transition-colors"
-              >
-                {label}
-              </Link>
-            ))}
+            {NAV_LINKS.slice(0, 2).map(({ href, label }) => {
+              const active = isLinkActive(href);
+              return (
+                <Link 
+                  key={href} 
+                  href={href} 
+                  className={`relative py-2 transition-colors ${
+                    active ? "text-onelife-red" : "text-charcoal/80 hover:text-onelife-red"
+                  }`}
+                >
+                  {label}
+                  {active && (
+                    <span className="absolute left-0 -bottom-[1px] w-full h-[2px] bg-onelife-red rounded-full" />
+                  )}
+                </Link>
+              );
+            })}
 
             {/* Dropdown for Owned Platforms — click to open/close */}
             <div className="relative" ref={platformDropdownRef}>
@@ -261,15 +286,23 @@ export const Navbar = () => {
               </AnimatePresence>
             </div>
 
-            {NAV_LINKS.slice(2).map(({ href, label }) => (
-              <Link 
-                key={href} 
-                href={href} 
-                className="relative py-2 text-charcoal/80 hover:text-onelife-red transition-colors"
-              >
-                {label}
-              </Link>
-            ))}
+            {NAV_LINKS.slice(2).map(({ href, label }) => {
+              const active = isLinkActive(href);
+              return (
+                <Link 
+                  key={href} 
+                  href={href} 
+                  className={`relative py-2 transition-colors ${
+                    active ? "text-onelife-red" : "text-charcoal/80 hover:text-onelife-red"
+                  }`}
+                >
+                  {label}
+                  {active && (
+                    <span className="absolute left-0 -bottom-[1px] w-full h-[2px] bg-onelife-red rounded-full" />
+                  )}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right Action Button */}
@@ -278,7 +311,7 @@ export const Navbar = () => {
               href="#contact" 
               className="bg-onelife-red hover:bg-[#d1171e] text-white font-heading font-semibold text-xs uppercase tracking-wider px-6 py-3 rounded shadow-sm hover:shadow-md transition-all duration-200"
             >
-              Contact Us
+              Initiate Brief
             </Link>
           </div>
 
@@ -336,7 +369,9 @@ export const Navbar = () => {
                 <Link 
                   href="/" 
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block px-2 py-3 text-onelife-red border-b border-charcoal/5"
+                  className={`block px-2 py-3 border-b border-charcoal/5 transition-colors ${
+                    isLinkActive("/") ? "text-onelife-red" : "text-charcoal hover:text-onelife-red"
+                  }`}
                 >
                   Home
                 </Link>
@@ -345,7 +380,9 @@ export const Navbar = () => {
                     key={href}
                     href={href} 
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block px-2 py-3 text-charcoal hover:text-onelife-red border-b border-charcoal/5 transition-colors"
+                    className={`block px-2 py-3 border-b border-charcoal/5 transition-colors ${
+                      isLinkActive(href) ? "text-onelife-red" : "text-charcoal hover:text-onelife-red"
+                    }`}
                   >
                     {label}
                   </Link>
@@ -402,7 +439,9 @@ export const Navbar = () => {
                     key={href}
                     href={href} 
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block px-2 py-3 text-charcoal hover:text-onelife-red border-b border-charcoal/5 transition-colors"
+                    className={`block px-2 py-3 border-b border-charcoal/5 transition-colors ${
+                      isLinkActive(href) ? "text-onelife-red" : "text-charcoal hover:text-onelife-red"
+                    }`}
                   >
                     {label}
                   </Link>
@@ -416,7 +455,7 @@ export const Navbar = () => {
                   onClick={() => setMobileMenuOpen(false)}
                   className="block text-center bg-onelife-red hover:bg-[#d1171e] text-white py-3.5 rounded uppercase tracking-wider text-xs font-semibold font-heading transition-colors"
                 >
-                  Contact Us
+                  Initiate Brief
                 </Link>
                 <div className="flex items-center justify-center gap-2 mt-4 text-[11px] text-slate-grey">
                   <MapPin className="w-3 h-3 text-onelife-red" />
