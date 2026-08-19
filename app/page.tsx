@@ -5,7 +5,7 @@ import { TrackRecord } from "@/components/TrackRecord";
 import { Platforms } from "@/components/Platforms";
 import { Leadership } from "@/components/Leadership";
 import { Contact } from "@/components/Contact";
-import { Footer } from "@/components/Footer";
+
 
 export default function HomePage() {
   return (
@@ -17,7 +17,6 @@ export default function HomePage() {
       <Platforms />
       <Leadership />
       <Contact />
-      <Footer />
     </main>
   );
 }
