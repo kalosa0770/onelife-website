@@ -22,12 +22,10 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--background);
-  color: var(--foreground);
 }
 
 body {
   background-color: var(--background);
-  color: var(--foreground);
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
@@ -39,7 +37,6 @@ body {
 /* Typography defaults */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  color: var(--foreground);
   font-weight: 700;
   line-height: 1.2;
 }

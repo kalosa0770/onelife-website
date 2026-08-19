@@ -7,7 +7,7 @@ const CARDS = [
   {
     id: "mission",
     eyebrow: "Our Mission",
-    title: "To Spread Bold Ideas.",
+    heading: "To Spread Bold Ideas.",
     description:
       "To spread bold ideas that transform how African businesses do marketing, and to connect them to the intelligence, platforms, and partnerships that help them grow.",
     image:
@@ -16,7 +16,7 @@ const CARDS = [
   {
     id: "vision",
     eyebrow: "Our Vision",
-    title: "The Valued Strategic Partner.",
+    heading: "The Valued Strategic Partner.",
     description:
       "To be the most valued strategic communications partner for African institutions, enterprises, and development actors operating across the continent.",
     image:
@@ -58,13 +58,13 @@ export const MissionVision = () => {
 
               {/* Card content */}
               <div className="relative z-10 space-y-3">
-                <span className="text-xs font-heading font-semibold uppercase tracking-wider text-onelife-red block">
+                <span className="text-xs font-heading font-bold uppercase tracking-wider text-onelife-red block">
                   {card.eyebrow}
                 </span>
-                <h3 className="font-heading font-bold text-2xl text-[#E5E5E2]">
-                  {card.title}
+                <h3 className="font-heading font-bold text-xl md:text-2xl text-warm-white tracking-tight">
+                  {card.heading}
                 </h3>
-                <p className="text-sm text-[#E5E5E2] leading-relaxed max-w-md">
+                <p className="text-sm text-warm-white leading-relaxed max-w-md">
                   {card.description}
                 </p>
               </div>
