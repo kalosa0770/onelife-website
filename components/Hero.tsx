@@ -93,7 +93,7 @@ const FEATURE_CARDS = [
 
 export const Hero = () => {
   return (
-    <section className="relative bg-charcoal text-warm-white pt-20 pb-32 lg:pb-36 overflow-visible z-15">
+    <section className="relative bg-charcoal text-warm-white pt-20 pb-32 lg:pb-36 overflow-visible z-15 px-4 sm:px-8">
       {/* Dark Auditorium Background Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat  pointer-events-none"
