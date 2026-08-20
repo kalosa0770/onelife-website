@@ -101,11 +101,11 @@ export const Navbar = () => {
   return (
     <header className="w-full sticky top-0 z-50 shadow-sm bg-warm-white">
       {/* 1. TOP UTILITY BAR */}
-      <div className="hidden sm:block bg-charcoal text-warm-white text-xs py-2 px-4 sm:px-8 border-b border-white/10">
+      <div className="hidden sm:block bg-onelife-red text-white text-xs py-2 px-4 sm:px-8 border-b border-white/10">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           
           {/* Left: Contact Info */}
-          <div className="flex items-center gap-6 text-[#A0A0A2]">
+          <div className="flex items-center gap-6 text-white/80 text-[11px] font-medium tracking-wider">
             <div className="flex items-center gap-1.5 hover:text-warm-white transition-colors">
               <MapPin className="w-3.5 h-3.5 text-onelife-red shrink-0" />
               <span>Lusaka, Zambia</span>
@@ -118,21 +118,21 @@ export const Navbar = () => {
 
           {/* Right: Ecosystem Link & Social SVGs */}
           <div className="flex items-center gap-4">
-            <span className="hidden md:inline text-[11px] text-[#A0A0A2] uppercase tracking-wider">
+            <span className="hidden md:inline text-[11px] text-white/80 uppercase tracking-wider">
               Owned Ecosystem:
             </span>
             <a 
               href="https://mariamasiri.substack.com" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-[#A0A0A2] hover:text-oti-gold transition-colors text-[11px] font-medium"
+              className="text-white/80 hover:text-oti-gold transition-colors text-[11px] font-medium"
             >
               OTI Substack
             </a>
             <span className="text-white/20">|</span>
             
             {/* Social Links (Inline SVGs) */}
-            <div className="flex items-center gap-3.5 text-[#A0A0A2]">
+            <div className="flex items-center gap-3.5 text-white/80">
               {/* LinkedIn */}
               <a 
                 href="https://linkedin.com" 

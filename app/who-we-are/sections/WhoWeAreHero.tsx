@@ -48,7 +48,7 @@ export const WhoWeAreHero = () => {
 
           <motion.p 
             variants={itemVariants}
-            className="text-base sm:text-xl text-slate-grey font-normal leading-relaxed max-w-3xl mx-auto"
+            className="text-base sm:text-lg text-slate-grey font-normal leading-relaxed max-w-3xl mx-auto"
           >
             For over 14 years, OneLife has partnered with African enterprises, institutions, and development actors to deliver strategically grounded, creatively bold work across Zambia and the SADC-COMESA region.
           </motion.p>
