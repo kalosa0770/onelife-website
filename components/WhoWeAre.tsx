@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { Phone, ArrowRight, CheckCircle2 } from "lucide-react";
+import type { WhoWeAreHome, WhoWeAreValue, SiteSettings } from "@/lib/content/read";
 
 const fadeInLeft: Variants = {
   hidden: { opacity: 0, x: -30 },
@@ -24,7 +25,13 @@ const fadeInRight: Variants = {
   },
 };
 
-export const WhoWeAre = () => {
+interface WhoWeAreProps {
+  content: WhoWeAreHome;
+  values: WhoWeAreValue[];
+  phone: SiteSettings["phone"];
+}
+
+export const WhoWeAre = ({ content, values, phone }: WhoWeAreProps) => {
   return (
     <section 
       id="who-we-are" 
@@ -74,43 +81,36 @@ export const WhoWeAre = () => {
         >
           <div>
             <span className="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-onelife-red block mb-2">
-              Who We Are
+              {content.eyebrow}
             </span>
             <h2 className="font-heading font-bold text-xl md:text-2xl text-charcoal tracking-tight leading-tight">
-              We are a strategic partner that is always there for your needs.
+              {content.heading}
             </h2>
           </div>
 
           {/* Highlighted Mission / Quote Box with OneLife Red Border Accent */}
           <div className="bg-[#F2F2EE] border-l-4 border-onelife-red p-4 sm:p-5 rounded-r">
             <p className="text-[12px] md:text-[14px] font-medium italic text-charcoal leading-relaxed">
-              &ldquo;We exist to spread bold ideas that transform how African businesses do marketing — and to connect them to the intelligence, platforms and partnerships that help them grow.&rdquo;
+              &ldquo;{content.quote}&rdquo;
             </p>
           </div>
 
           {/* Narrative / Track Record */}
           <p className="text-[12px] md:text-[14px] text-slate-grey leading-relaxed">
-            For 14 years across Zambia and the SADC-COMESA corridor, OneLife has eliminated vendor fragmentation. We think strategically first, then assemble the exact team needed — brand, flagship summits, trade intelligence, and high-velocity digital delivery.
+            {content.paragraph}
           </p>
 
           {/* Key Value Points */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-            <div className="flex items-center gap-2 text-[12px] md:text-[14px] font-heading font-semibold text-charcoal">
-              <CheckCircle2 className="w-4 h-4 text-onelife-red shrink-0" />
-              <span>Plug-and-Play Assembly</span>
-            </div>
-            <div className="flex items-center gap-2 text-[12px] md:text-[14px] font-heading font-semibold text-charcoal">
-              <CheckCircle2 className="w-4 h-4 text-onelife-red shrink-0" />
-              <span>14-Year Proven Track Record</span>
-            </div>
-            <div className="flex items-center gap-2 text-[12px] md:text-[14px] font-heading font-semibold text-charcoal">
-              <CheckCircle2 className="w-4 h-4 text-onelife-red shrink-0" />
-              <span>Proprietary Owned Platforms</span>
-            </div>
-            <div className="flex items-center gap-2 text-[12px] md:text-[14px] font-heading font-semibold text-charcoal">
-              <CheckCircle2 className="w-4 h-4 text-onelife-red shrink-0" />
-              <span>Pan-African &amp; Corridor Fluent</span>
-            </div>
+            {values.map((value, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-2 text-[12px] md:text-[14px] font-heading font-semibold text-charcoal"
+              >
+                <CheckCircle2 className="w-4 h-4 text-onelife-red shrink-0" />
+                <span>{value.text}</span>
+              </div>
+            ))}
           </div>
 
           {/* Action Row: Primary Button & Phone Call Out Badge */}
@@ -132,11 +132,11 @@ export const WhoWeAre = () => {
                 <span className="text-[10px] uppercase font-bold tracking-wider text-slate-grey block">
                   Direct Inquiries
                 </span>
-                <a 
-                  href="tel:+260211000000" 
+                <a
+                  href={`tel:${phone.replace(/[^+\d]/g, "")}`}
                   className="text-xs font-heading font-bold text-charcoal hover:text-onelife-red transition-colors"
                 >
-                  +260 961 888 009
+                  {phone}
                 </a>
               </div>
             </div>

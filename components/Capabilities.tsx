@@ -4,70 +4,13 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { 
-  Compass, 
-  Calendar, 
-  TrendingUp, 
-  Layers, 
-  ArrowRight 
-} from "lucide-react";
-
-interface CapabilityItem {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  icon: React.ElementType;
-  image: string;
-  link: string;
-}
-
-const capabilities: CapabilityItem[] = [
-  {
-    id: "communications",
-    title: "Strategic Communications",
-    subtitle: "Brand & Public Affairs",
-    description:
-      "Market positioning, stakeholder alignment, reputation management, and multi-channel campaign architectures tailored for local and regional African contexts.",
-    icon: Compass,
-    image:
-      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop",
-    link: "/capabilities#communications",
-  },
-  {
-    id: "events",
-    title: "Flagship Summits & Events",
-    subtitle: "End-to-End Production",
-    description:
-      "Full-scale production of national-level dialogues, trade exhibitions, and proprietary summits with zero vendor fragmentation and single-point accountability.",
-    icon: Calendar,
-    image:
-      "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=800&auto=format&fit=crop",
-    link: "/capabilities#events",
-  },
-  {
-    id: "trade",
-    title: "Trade Intelligence",
-    subtitle: "Corridor & Deal Advisory",
-    description:
-      "Proprietary corridor data, SME deal-readiness frameworks, and market link facilitation across Southern and Eastern African trade routes.",
-    icon: TrendingUp,
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop",
-    link: "/capabilities#trade",
-  },
-  {
-    id: "digital",
-    title: "Media & Digital Production",
-    subtitle: "Creative Execution",
-    description:
-      "Delivered in partnership with Mélange Digital: high-velocity content creation, corporate performance marketing, and multimedia publishing.",
-    icon: Layers,
-    image:
-      "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800&auto=format&fit=crop",
-    link: "/capabilities#digital",
-  },
-];
+import { ArrowRight } from "lucide-react";
+import { ContentIcon } from "@/components/ContentIcon";
+import type {
+  CapabilityHomeCard,
+  CapabilitiesHomeIntro,
+  WithId,
+} from "@/lib/content/read";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -89,7 +32,12 @@ const cardVariants: Variants = {
   },
 };
 
-export const Capabilities = () => {
+interface CapabilitiesProps {
+  intro: CapabilitiesHomeIntro;
+  cards: WithId<CapabilityHomeCard>[];
+}
+
+export const Capabilities = ({ intro, cards }: CapabilitiesProps) => {
   return (
     <section 
       id="capabilities" 
@@ -100,13 +48,13 @@ export const Capabilities = () => {
         {/* Section Header */}
         <div className="text-center max-w-5xl mx-auto mb-16">
           <span className="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-onelife-red block mb-2">
-            What We Offer
+            {intro.eyebrow}
           </span>
           <h2 className="font-heading font-bold text-xl md:text-2xl text-charcoal tracking-tight mb-4">
-            Integrated Capabilities &amp; Execution
+            {intro.heading}
           </h2>
           <p className="text-[12px] sm:text-base text-slate-grey leading-relaxed">
-            Every practice area is built to operate either independently or seamlessly orchestrated together under a single accountable partner.
+            {intro.description}
           </p>
         </div>
 
@@ -118,8 +66,7 @@ export const Capabilities = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {capabilities.map((item) => {
-            const IconComponent = item.icon;
+          {cards.map((item) => {
             return (
               <motion.div
                 key={item.id}
@@ -142,7 +89,7 @@ export const Capabilities = () => {
                 <div className="relative z-10 text-warm-white flex flex-col justify-end h-full">
                   {/* Circular Line Icon Badge */}
                   <div className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-4 transition-colors group-hover:bg-onelife-red group-hover:border-onelife-red">
-                    <IconComponent className="w-5 h-5 text-warm-white" strokeWidth={2} />
+                    <ContentIcon name={item.icon} className="w-5 h-5 text-warm-white" strokeWidth={2} />
                   </div>
 
                   <span className="text-[10px] font-heading font-semibold uppercase tracking-wider text-white/70 block mb-1">

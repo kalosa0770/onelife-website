@@ -1,40 +1,23 @@
 "use client";
 
 import React from "react";
+import type { EyebrowDescription, FourPhaseStep, WithId } from "@/lib/content/read";
 
-const fourPhases = [
-  {
-    step: "01",
-    name: "Strategic Diagnosis",
-    detail: "We deconstruct the market environment, audience barriers, and commercial objectives before proposing tactics.",
-  },
-  {
-    step: "02",
-    name: "Bespoke Team Assembly",
-    detail: "Rather than pushing a fixed agency menu, we assemble the exact creative, trade, or event discipline your challenge needs.",
-  },
-  {
-    step: "03",
-    name: "Precision Delivery",
-    detail: "Execution with single-point accountability across digital campaigns, trade corridors, or national summits.",
-  },
-  {
-    step: "04",
-    name: "Impact & Compounding Reach",
-    detail: "Connecting client outcomes to our owned platforms (IMPEX, SWS, OTI) for sustained regional momentum.",
-  },
-];
+interface FourPhaseApproachProps {
+  intro: EyebrowDescription;
+  steps: WithId<FourPhaseStep>[];
+}
 
-export const FourPhaseApproach = () => {
+export const FourPhaseApproach = ({ intro, steps: fourPhases }: FourPhaseApproachProps) => {
   return (
     <section className="py-24 px-4 sm:px-8 bg-[#F4F4F0] border-b border-charcoal/10">
       <div className="max-w-7xl mx-auto">
         <div className="max-w-2xl mb-16">
           <span className="text-[12px] font-heading font-semibold uppercase tracking-[0.2em] text-onelife-red block mb-2">
-            Operating Methodology
+            {intro.eyebrow}
           </span>
           <p className="text-[12px] md:text-[14px] text-slate-grey mt-3">
-            How we eliminate agency overhead and deliver targeted ROI on every brief.
+            {intro.description}
           </p>
         </div>
 

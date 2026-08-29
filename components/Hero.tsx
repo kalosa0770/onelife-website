@@ -3,14 +3,9 @@
 import React from "react";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { 
-  Award, 
-  Lightbulb, 
-  CheckCircle2, 
-  Briefcase, 
-  ArrowRight, 
-  Play 
-} from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
+import { ContentIcon } from "@/components/ContentIcon";
+import type { HeroFeatureCard } from "@/lib/content/read";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -52,46 +47,12 @@ const cardVariants: Variants = {
   },
 };
 
-const FEATURE_CARDS = [
-  {
-    icon: Award,
-    iconBg: "bg-warm-white",
-    iconColor: "text-onelife-red",
-    title: "14+ Years Track Record",
-    body: "Proven delivery across banking, agriculture, public health, trade corridors, and regional investment.",
-    tag: "50+ Partner Brands",
-    variant: "light" as const,
-  },
-  {
-    icon: Lightbulb,
-    iconBg: "bg-warm-white",
-    iconColor: "text-charcoal",
-    title: "Strategic Assembly",
-    body: "We think strategically first, then assemble the team rather than forcing a rigid agency menu.",
-    tag: "Plug & Play Delivery",
-    variant: "light" as const,
-  },
-  {
-    icon: CheckCircle2,
-    iconBg: "bg-warm-white",
-    iconColor: "text-charcoal",
-    title: "Owned Platforms",
-    body: "Proprietary reach through IMPEX, Smart Woman Summit, and OneLife Trade Intelligence (OTI).",
-    tag: "Proprietary Reach",
-    variant: "light" as const,
-  },
-  {
-    icon: Briefcase,
-    iconBg: "bg-white/10",
-    iconColor: "text-white",
-    title: "Pan-African Reach",
-    body: "Rooted in Zambia, fluent across the SADC-COMESA trade corridors with seamless regional delivery.",
-    tag: "Lusaka to Regional Scale",
-    variant: "dark" as const,
-  },
-];
+interface HeroProps {
+  headline: string;
+  featureCards: HeroFeatureCard[];
+}
 
-export const Hero = () => {
+export const Hero = ({ headline, featureCards }: HeroProps) => {
   return (
     <section className="relative bg-charcoal text-warm-white pt-20 pb-32 lg:pb-36 overflow-visible z-15 px-4 sm:px-8">
       {/* Dark Auditorium Background Overlay */}
@@ -116,7 +77,7 @@ export const Hero = () => {
             variants={itemVariants}
             className="font-heading text-2xl md:text-5xl text-warm-white tracking-tight leading-[1.15] mb-6"
           >
-            We are a strategic partner assembling brand, events, trade intelligence, and digital delivery.
+            {headline}
           </motion.h1>
 
           {/* Action Buttons */}
@@ -149,7 +110,7 @@ export const Hero = () => {
           initial="hidden"
           animate="visible"
         >
-          {FEATURE_CARDS.map(({ icon: Icon, iconBg, iconColor, title, body, tag, variant }) => {
+          {featureCards.map(({ icon, title, body, tag, variant }) => {
             const isDark = variant === "dark";
             return (
               <motion.div
@@ -165,10 +126,14 @@ export const Hero = () => {
                 <div>
                   <div
                     className={`w-9 h-9 rounded flex items-center justify-center mb-4 border ${
-                      iconBg
-                    } ${isDark ? "border-white/20" : "border-charcoal/5"}`}
+                      isDark ? "bg-white/10 border-white/20" : "bg-warm-white border-charcoal/5"
+                    }`}
                   >
-                    <Icon className={`w-4.5 h-4.5 ${iconColor}`} strokeWidth={2} />
+                    <ContentIcon
+                      name={icon}
+                      className={`w-4.5 h-4.5 ${isDark ? "text-white" : "text-onelife-red"}`}
+                      strokeWidth={2}
+                    />
                   </div>
                   <h3
                     className={`font-heading font-bold text-sm leading-snug mb-1.5 ${

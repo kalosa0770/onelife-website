@@ -2,15 +2,14 @@
 
 import React, { useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import { 
-  MapPin, 
-  Mail, 
-  Phone, 
-  Clock, 
-  ArrowRight, 
-  CheckCircle2, 
-  ShieldCheck 
+import {
+  MapPin,
+  Mail,
+  Clock,
+  ArrowRight,
+  CheckCircle2,
 } from "lucide-react";
+import type { SiteSettings } from "@/lib/content/read";
 
 const fadeInLeft: Variants = {
   hidden: { opacity: 0, x: -24 },
@@ -30,7 +29,11 @@ const fadeInRight: Variants = {
   },
 };
 
-export const Contact = () => {
+interface ContactProps {
+  siteSettings: SiteSettings;
+}
+
+export const Contact = ({ siteSettings }: ContactProps) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -97,7 +100,7 @@ export const Contact = () => {
                   Headquarters
                 </span>
                 <p className="text-[10px] md:text-[12px] font-semibold text-charcoal">
-                  Lusaka, Zambia
+                  {siteSettings.address}
                 </p>
               </div>
             </div>
@@ -110,11 +113,11 @@ export const Contact = () => {
                 <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-slate-grey block">
                   Direct Inquiries
                 </span>
-                <a 
-                  href="mailto:info@onelife.co.zm" 
+                <a
+                  href={`mailto:${siteSettings.email}`}
                   className="text-[10px] md:text-[12px] font-semibold text-charcoal hover:text-onelife-red transition-colors"
                 >
-                  info@onelife.co.zm
+                  {siteSettings.email}
                 </a>
               </div>
             </div>

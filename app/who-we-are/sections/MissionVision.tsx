@@ -2,29 +2,13 @@
 
 import React from "react";
 import Image from "next/image";
+import type { MissionVisionCard, WithId } from "@/lib/content/read";
 
-const CARDS = [
-  {
-    id: "mission",
-    eyebrow: "Our Mission",
-    heading: "To Spread Bold Ideas.",
-    description:
-      "To spread bold ideas that transform how African businesses do marketing, and to connect them to the intelligence, platforms, and partnerships that help them grow.",
-    image:
-      "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    id: "vision",
-    eyebrow: "Our Vision",
-    heading: "The Valued Strategic Partner.",
-    description:
-      "To be the most valued strategic communications partner for African institutions, enterprises, and development actors operating across the continent.",
-    image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop",
-  },
-];
+interface MissionVisionProps {
+  cards: WithId<MissionVisionCard>[];
+}
 
-export const MissionVision = () => {
+export const MissionVision = ({ cards: CARDS }: MissionVisionProps) => {
   return (
     <section className="relative py-24 px-4 sm:px-8 bg-warm-white border-b border-charcoal/10 overflow-hidden">
       {/* Section-level background image — subtle, muted, sits behind both cards */}

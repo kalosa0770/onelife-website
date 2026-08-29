@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, type Variants } from "framer-motion";
+import type { EyebrowDescription } from "@/lib/content/read";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -23,7 +24,11 @@ const itemVariants: Variants = {
   },
 };
 
-export const WhoWeAreHero = () => {
+interface WhoWeAreHeroProps {
+  content: EyebrowDescription;
+}
+
+export const WhoWeAreHero = ({ content }: WhoWeAreHeroProps) => {
   return (
     <section className="relative pt-20 pb-20 px-4 sm:px-8 border-b border-charcoal/10 bg-warm-white overflow-hidden">
       {/* Subtle Watermark */}
@@ -39,18 +44,18 @@ export const WhoWeAreHero = () => {
           initial="hidden"
           animate="visible"
         >
-          <motion.span 
-            variants={itemVariants} 
+          <motion.span
+            variants={itemVariants}
             className="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-onelife-red block mb-3"
           >
-            Who We Are
+            {content.eyebrow}
           </motion.span>
 
-          <motion.p 
+          <motion.p
             variants={itemVariants}
             className="text-base sm:text-lg text-slate-grey font-normal leading-relaxed max-w-3xl mx-auto"
           >
-            For over 14 years, OneLife has partnered with African enterprises, institutions, and development actors to deliver strategically grounded, creatively bold work across Zambia and the SADC-COMESA region.
+            {content.description}
           </motion.p>
         </motion.div>
       </div>

@@ -2,8 +2,13 @@
 
 import React from "react";
 import Image from "next/image";
+import type { ImperfectPhilosophy } from "@/lib/content/read";
 
-export const ImperfectOPhilosophy = () => {
+interface ImperfectOPhilosophyProps {
+  content: ImperfectPhilosophy;
+}
+
+export const ImperfectOPhilosophy = ({ content }: ImperfectOPhilosophyProps) => {
   return (
     <section className="py-20 px-4 sm:px-8 bg-white border-b border-charcoal/10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -24,20 +29,20 @@ export const ImperfectOPhilosophy = () => {
 
         <div className="lg:col-span-7 space-y-5">
           <span className="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-onelife-red block">
-            What We Believe In
+            {content.eyebrow}
           </span>
           <h2 className="font-heading font-bold text-xl md:text-2xl text-charcoal tracking-tight">
-            Continuity Over Flawlessness.
+            {content.heading}
           </h2>
           <p className="text-[12px] md:text-[14px] text-slate-grey leading-relaxed">
-            Look closely at our logo: it was never a clean, compass-drawn circle. It has a hand-drawn stroke, an uneven curve, and a subtle break. That is our philosophy: a life, or a growing business, is not a perfect circle.
+            {content.paragraph1}
           </p>
           <p className="text-[12px] md:text-[14px] text-slate-grey leading-relaxed">
-            True continuity means staying whole while navigating economic headwinds, structural pivots, and market realities. It is why our 14-year track record has stayed unbroken—we adapt, solve, and build without pretending challenges do not exist.
+            {content.paragraph2}
           </p>
           <div className="pt-2">
             <blockquote className="border-l-2 border-onelife-red pl-4 text-[12px] md:text-[14px] font-semibold text-charcoal italic">
-              &ldquo;Imagination is the beginning of creation.&rdquo; — OneLife Motto
+              &ldquo;{content.quote}&rdquo;
             </blockquote>
           </div>
         </div>

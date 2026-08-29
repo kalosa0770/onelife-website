@@ -3,41 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import { Users, Handshake, Globe2, ShieldCheck } from "lucide-react";
-
-interface StatItem {
-  id: string;
-  value: string;
-  label: string;
-  icon: React.ElementType;
-}
-
-const stats: StatItem[] = [
-  {
-    id: "years",
-    value: "14+",
-    label: "Years Proven Delivery",
-    icon: ShieldCheck,
-  },
-  {
-    id: "brands",
-    value: "50+",
-    label: "Partner Brands & Clients",
-    icon: Handshake,
-  },
-  {
-    id: "platforms",
-    value: "3",
-    label: "Owned Regional Platforms",
-    icon: Globe2,
-  },
-  {
-    id: "audience",
-    value: "100%",
-    label: "Accountable Delivery",
-    icon: Users,
-  },
-];
+import { ContentIcon } from "@/components/ContentIcon";
+import type { TrackRecordStat, WithId } from "@/lib/content/read";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -59,7 +26,11 @@ const itemVariants: Variants = {
   },
 };
 
-export const TrackRecord = () => {
+interface TrackRecordProps {
+  stats: WithId<TrackRecordStat>[];
+}
+
+export const TrackRecord = ({ stats }: TrackRecordProps) => {
   return (
     <section 
       id="track-record" 
@@ -94,10 +65,9 @@ export const TrackRecord = () => {
           viewport={{ once: true, margin: "-80px" }}
         >
           {stats.map((stat, index) => {
-            const IconComponent = stat.icon;
             const isFirstInMobileRow = index % 2 === 0;
             return (
-              <motion.div 
+              <motion.div
                 key={stat.id}
                 variants={itemVariants}
                 className={`relative flex flex-col items-center group px-6 py-6 md:py-0 ${
@@ -108,7 +78,11 @@ export const TrackRecord = () => {
               >
                 {/* Circular Icon Badge (matches Capabilities section treatment) */}
                 <div className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-4 transition-colors duration-300 group-hover:bg-onelife-red group-hover:border-onelife-red">
-                  <IconComponent className="w-5 h-5 text-onelife-red group-hover:text-warm-white transition-colors duration-300" strokeWidth={2} />
+                  <ContentIcon
+                    name={stat.icon}
+                    className="w-5 h-5 text-onelife-red group-hover:text-warm-white transition-colors duration-300"
+                    strokeWidth={2}
+                  />
                 </div>
 
                 {/* Bold Stat Value */}

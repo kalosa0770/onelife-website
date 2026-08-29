@@ -4,48 +4,9 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { 
-  Briefcase, 
-  Globe2, 
-  TrendingUp, 
-  ArrowRight,
-  ShieldCheck
-} from "lucide-react";
-
-interface RoleItem {
-  id: string;
-  title: string;
-  role: string;
-  description: string;
-  icon: React.ElementType;
-}
-
-const leadershipRoles: RoleItem[] = [
-  {
-    id: "onelife-impex",
-    title: "OneLife & IMPEX Platform",
-    role: "Founder & Lead Strategist",
-    description:
-      "Directing 14+ years of strategic communications, high-stakes stakeholder events, and trade corridor facilitation across SADC-COMESA.",
-    icon: Briefcase,
-  },
-  {
-    id: "oti-publishing",
-    title: "OneLife Trade Intelligence (OTI)",
-    role: "Editorial Anchor & Publisher",
-    description:
-      "Authoring trade analysis and corridor intelligence that guides institutional partners, policymakers, and second-economy entrepreneurs.",
-    icon: Globe2,
-  },
-  {
-    id: "corridor-initiatives",
-    title: "Regional Trade & Ventures",
-    role: "Corridor Manager & Venture Lead",
-    description:
-      "Spearheading cross-border trade initiatives (including Zambia–Zimbabwe corridor management) and the OneLife Brand Accelerator.",
-    icon: TrendingUp,
-  },
-];
+import { ShieldCheck, ArrowRight } from "lucide-react";
+import { ContentIcon } from "@/components/ContentIcon";
+import type { StaffMember, WithId, EyebrowHeading } from "@/lib/content/read";
 
 const fadeInLeft: Variants = {
   hidden: { opacity: 0, x: -30 },
@@ -65,16 +26,26 @@ const fadeInRight: Variants = {
   },
 };
 
-export const Leadership = () => {
+interface LeadershipProps {
+  intro: EyebrowHeading;
+  staff: WithId<StaffMember>[];
+}
+
+export const Leadership = ({ intro, staff }: LeadershipProps) => {
+  const featured = staff.find((s) => s.isFeatured === "true") ?? staff[0];
+  const others = staff.filter((s) => s.id !== featured?.id);
+
+  if (!featured) return null;
+
   return (
-    <section 
-      id="leadership" 
+    <section
+      id="leadership"
       className="py-24 px-4 sm:px-8 bg-warm-white relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-        
+
         {/* 1. LEFT COLUMN: OFFSET IMAGE FRAME WITH ACCENTS (Reference Layout) */}
-        <motion.div 
+        <motion.div
           className="lg:col-span-6 relative flex justify-center lg:justify-start"
           initial="hidden"
           whileInView="visible"
@@ -96,30 +67,32 @@ export const Leadership = () => {
 
           {/* Main Portrait / Leadership Image */}
           <div className="relative z-10 w-full max-w-md h-[420px] sm:h-[480px] overflow-hidden">
-            <Image
-              src="/maria.png"
-              alt="Maria Masiri - Lead Strategist & Founder, OneLife"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover object-top hover:scale-105 transition-transform duration-500"
-            />
+            {featured.photoUrl && (
+              <Image
+                src={featured.photoUrl}
+                alt={`${featured.name} - ${featured.role}`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-top hover:scale-105 transition-transform duration-500"
+              />
+            )}
             {/* Subtle Gradient Vignette */}
             <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent pointer-events-none" />
-            
+
             {/* Overlay Name Badge */}
             <div className="absolute bottom-6 left-6 right-6 text-warm-white">
               <div className="flex items-center gap-1.5 text-onelife-red text-xs font-heading font-semibold uppercase tracking-wider mb-0.5">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>Executive Leadership</span>
               </div>
-              <h3 className="font-heading font-bold text-xl text-white">Maria Masiri</h3>
-              <p className="text-xs text-[#C2C2C4]">Founder, Lead Strategist &amp; Corridor Manager</p>
+              <h3 className="font-heading font-bold text-xl text-white">{featured.name}</h3>
+              <p className="text-xs text-[#C2C2C4]">{featured.role}</p>
             </div>
           </div>
         </motion.div>
 
         {/* 2. RIGHT COLUMN: STACKED FEATURE LIST */}
-        <motion.div 
+        <motion.div
           className="lg:col-span-6 space-y-8"
           initial="hidden"
           whileInView="visible"
@@ -128,41 +101,57 @@ export const Leadership = () => {
         >
           <div>
             <span className="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-onelife-red block mb-2">
-              Strategic Leadership
+              {intro.eyebrow}
             </span>
             <h2 className="font-heading font-bold text-xl sm:text-2xl text-charcoal tracking-tight leading-tight">
-              I believe in Strategic Vision &amp; Hands-On Execution.
+              {intro.heading}
             </h2>
           </div>
 
           {/* Stacked List (Reference Layout Rows) */}
           <div className="space-y-6">
-            {leadershipRoles.map((item) => {
-              const IconComponent = item.icon;
+            {featured.highlights.map((item, index) => {
               return (
-                <div key={item.id} className="flex items-start gap-4 sm:gap-5 group">
+                <div key={index} className="flex items-start gap-4 sm:gap-5 group">
                   {/* Circular / Outlined Icon with OneLife Red Stroke */}
                   <div className="w-12 h-12 rounded-lg bg-warm-white border border-charcoal/10 flex items-center justify-center shrink-0 transition-colors group-hover:border-onelife-red group-hover:bg-white shadow-sm">
-                    <IconComponent className="w-6 h-6 text-onelife-red" strokeWidth={2} />
+                    <ContentIcon name={item.icon} className="w-6 h-6 text-onelife-red" strokeWidth={2} />
                   </div>
 
                   <div className="space-y-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="font-heading font-bold text-[12px] md:text-[14px] text-charcoal group-hover:text-onelife-red transition-colors">
-                        {item.title}
-                      </h3>
-                      <span className="text-[12px] font-heading font-medium text-slate-grey bg-charcoal/5 px-2 py-0.5 rounded">
-                        {item.role}
-                      </span>
-                    </div>
+                    <h3 className="font-heading font-bold text-[12px] md:text-[14px] text-charcoal group-hover:text-onelife-red transition-colors">
+                      {item.title}
+                    </h3>
                     <p className="text-[10px] sm:text-sm text-slate-grey leading-relaxed">
-                      {item.description}
+                      {item.body}
                     </p>
                   </div>
                 </div>
               );
             })}
           </div>
+
+          {/* Additional Team Members (once more than one staff member exists) */}
+          {others.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              {others.map((member) => (
+                <div
+                  key={member.id}
+                  className="flex items-center gap-3 p-3 rounded-lg border border-charcoal/10 bg-warm-white"
+                >
+                  {member.photoUrl && (
+                    <div className="relative w-11 h-11 rounded-full overflow-hidden shrink-0 border border-charcoal/10">
+                      <Image src={member.photoUrl} alt={member.name} fill className="object-cover" />
+                    </div>
+                  )}
+                  <div>
+                    <p className="font-heading font-bold text-xs text-charcoal">{member.name}</p>
+                    <p className="text-[11px] text-slate-grey">{member.role}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* CTA Link */}
           <div className="pt-2">
