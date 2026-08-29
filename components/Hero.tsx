@@ -49,17 +49,18 @@ const cardVariants: Variants = {
 
 interface HeroProps {
   headline: string;
+  backgroundImage: string;
   featureCards: HeroFeatureCard[];
 }
 
-export const Hero = ({ headline, featureCards }: HeroProps) => {
+export const Hero = ({ headline, backgroundImage, featureCards }: HeroProps) => {
   return (
     <section className="relative bg-charcoal text-warm-white pt-20 pb-32 lg:pb-36 overflow-visible z-15 px-4 sm:px-8">
       {/* Dark Auditorium Background Overlay */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat  pointer-events-none"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069&auto=format&fit=crop')`,
+          backgroundImage: `url('${backgroundImage}')`,
         }}
       />
     

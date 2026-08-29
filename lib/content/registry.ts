@@ -47,7 +47,10 @@ const singletons: SingletonDefinition[] = [
     kind: "singleton",
     key: "hero",
     label: "Homepage Hero",
-    fields: [{ key: "headline", label: "Headline", type: "textarea", rows: 3 }],
+    fields: [
+      { key: "headline", label: "Headline", type: "textarea", rows: 3 },
+      { key: "backgroundImage", label: "Background Image", type: "image" },
+    ],
   },
   {
     kind: "singleton",
@@ -58,6 +61,18 @@ const singletons: SingletonDefinition[] = [
       { key: "heading", label: "Heading", type: "textarea", rows: 2 },
       { key: "quote", label: "Pull Quote", type: "textarea" },
       { key: "paragraph", label: "Paragraph", type: "textarea" },
+      {
+        key: "heroImage",
+        label: "Main Image",
+        type: "image",
+        helpText: "The larger of the two photos.",
+      },
+      {
+        key: "secondaryImage",
+        label: "Secondary Image",
+        type: "image",
+        helpText: "The smaller stacked photo next to it.",
+      },
     ],
   },
   {
@@ -84,6 +99,12 @@ const singletons: SingletonDefinition[] = [
     key: "capabilities-cta",
     label: "Capabilities Page Closing Banner",
     fields: [{ key: "heading", label: "Heading", type: "text" }],
+  },
+  {
+    kind: "singleton",
+    key: "track-record-home",
+    label: "Homepage Track Record Section",
+    fields: [{ key: "backgroundImage", label: "Background Image", type: "image" }],
   },
   {
     kind: "singleton",

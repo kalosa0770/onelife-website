@@ -80,6 +80,8 @@ async function main() {
   await seedSingleton("hero", {
     headline:
       "We are a strategic partner assembling brand, events, trade intelligence, and digital delivery.",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069&auto=format&fit=crop",
   });
 
   await seedSingleton("who-we-are-home", {
@@ -89,6 +91,10 @@ async function main() {
       "We exist to spread bold ideas that transform how African businesses do marketing — and to connect them to the intelligence, platforms and partnerships that help them grow.",
     paragraph:
       "For 14 years across Zambia and the SADC-COMESA corridor, OneLife has eliminated vendor fragmentation. We think strategically first, then assemble the exact team needed — brand, flagship summits, trade intelligence, and high-velocity digital delivery.",
+    heroImage:
+      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop",
+    secondaryImage:
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800&auto=format&fit=crop",
   });
 
   await seedSingleton("capabilities-home-intro", {
@@ -106,6 +112,11 @@ async function main() {
 
   await seedSingleton("capabilities-cta", {
     heading: "Have a Strategic Challenge in Front of You?",
+  });
+
+  await seedSingleton("track-record-home", {
+    backgroundImage:
+      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2000&auto=format&fit=crop",
   });
 
   await seedSingleton("track-record-intro", {

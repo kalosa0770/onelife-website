@@ -50,7 +50,7 @@ export const WhoWeAre = ({ content, values, phone }: WhoWeAreProps) => {
           {/* Main Hero Photo: Conference / Summit Stage */}
           <div className="col-span-8 relative h-72 sm:h-[400px] rounded-lg overflow-hidden shadow-xl border border-charcoal/10">
             <Image
-              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop"
+              src={content.heroImage}
               alt="OneLife Strategic Summit Production and Panel"
               fill
               sizes="(max-width: 768px) 66vw, 33vw"
@@ -62,7 +62,7 @@ export const WhoWeAre = ({ content, values, phone }: WhoWeAreProps) => {
           {/* Secondary Stacked Photo: Event Detail / VIP Catering / Interaction */}
           <div className="col-span-4 relative h-52 sm:h-72 rounded-lg overflow-hidden shadow-lg border border-charcoal/10">
             <Image
-              src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800&auto=format&fit=crop"
+              src={content.secondaryImage}
               alt="OneLife Strategic Event Execution Detail"
               fill
               sizes="(max-width: 768px) 33vw, 16vw"

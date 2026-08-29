@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { ContentIcon } from "@/components/ContentIcon";
-import type { TrackRecordStat, WithId } from "@/lib/content/read";
+import type { TrackRecordHome, TrackRecordStat, WithId } from "@/lib/content/read";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -27,19 +27,20 @@ const itemVariants: Variants = {
 };
 
 interface TrackRecordProps {
+  content: TrackRecordHome;
   stats: WithId<TrackRecordStat>[];
 }
 
-export const TrackRecord = ({ stats }: TrackRecordProps) => {
+export const TrackRecord = ({ content, stats }: TrackRecordProps) => {
   return (
-    <section 
-      id="track-record" 
+    <section
+      id="track-record"
       className="relative w-full py-20 bg-charcoal text-warm-white overflow-hidden"
     >
       {/* 1. Dark Event / Lighting Background Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2000&auto=format&fit=crop"
+          src={content.backgroundImage}
           alt="OneLife Event Production Atmosphere"
           fill
           sizes="100vw"

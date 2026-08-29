@@ -21,6 +21,11 @@ export interface SiteSettings {
 
 export interface HeroContent {
   headline: string;
+  backgroundImage: string;
+}
+
+export interface TrackRecordHome {
+  backgroundImage: string;
 }
 
 export interface EyebrowHeading {
@@ -38,6 +43,8 @@ export interface WhoWeAreHome {
   heading: string;
   quote: string;
   paragraph: string;
+  heroImage: string;
+  secondaryImage: string;
 }
 
 export interface CapabilitiesHomeIntro {
