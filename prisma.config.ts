@@ -6,8 +6,15 @@
 // `prisma` CLI), so it needs to load it explicitly.
 import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from "prisma/config";
 
+// `defineConfig`'s `env()` helper throws immediately if the variable isn't
+// set — even for `prisma generate`, which doesn't touch the database at
+// all. That breaks `npm install` (which runs `generate` via postinstall)
+// anywhere DATABASE_URL isn't configured yet, e.g. a fresh clone or the
+// very first Vercel build before env vars are set. Falling back to `""` for
+// `generate`, while still giving `migrate`/`db seed` a real error if they
+// run without one, is worth doing here instead.
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
@@ -15,6 +22,6 @@ export default defineConfig({
     seed: "tsx prisma/seed.ts",
   },
   datasource: {
-    url: env("DATABASE_URL"),
+    url: process.env.DATABASE_URL ?? "",
   },
 });
