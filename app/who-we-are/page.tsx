@@ -32,7 +32,11 @@ export default async function WhoWeArePage() {
     staff,
     allianceHighlights,
   ] = await Promise.all([
-    getSingleton<EyebrowDescription>("who-we-are-hero", { eyebrow: "", description: "" }),
+    getSingleton<EyebrowDescription>("who-we-are-hero", {
+      eyebrow: "",
+      description: "",
+      backgroundImage: "",
+    }),
     getSingleton<ImperfectPhilosophy>("imperfect-philosophy", {
       eyebrow: "",
       heading: "",
@@ -48,7 +52,11 @@ export default async function WhoWeArePage() {
     }),
     getSingleton<EyebrowHeading>("core-values-intro", { eyebrow: "", heading: "" }),
     getItems<CoreValue>("core-values", { title: "", description: "", icon: "Compass" }),
-    getSingleton<EyebrowDescription>("four-phase-intro", { eyebrow: "", description: "" }),
+    getSingleton<EyebrowDescription>("four-phase-intro", {
+      eyebrow: "",
+      description: "",
+      backgroundImage: "",
+    }),
     getItems<FourPhaseStep>("four-phase-steps", { step: "", name: "", detail: "" }),
     getSingleton<LeadershipAllianceIntro>("leadership-alliance-intro", {
       eyebrow: "",

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { PasswordInput } from "./fields/PasswordInput";
 
 export function LoginForm() {
   const router = useRouter();
@@ -45,30 +46,25 @@ export function LoginForm() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-3 py-2.5 text-sm bg-white border border-charcoal/15 rounded focus:outline-none focus:border-charcoal"
+          className="w-full px-3.5 py-2.5 text-sm bg-white border border-charcoal/15 rounded-lg transition-shadow focus:outline-none focus:border-charcoal focus:ring-2 focus:ring-onelife-red/15"
         />
       </div>
-      <div className="space-y-1.5">
-        <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal">
-          Password
-        </label>
-        <input
-          type="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-3 py-2.5 text-sm bg-white border border-charcoal/15 rounded focus:outline-none focus:border-charcoal"
-        />
-      </div>
+      <PasswordInput
+        label="Password"
+        required
+        value={password}
+        onChange={setPassword}
+        autoComplete="current-password"
+      />
       {error && (
-        <p className="text-sm text-onelife-red bg-onelife-red/10 border border-onelife-red/20 rounded px-4 py-3">
+        <p className="text-sm text-onelife-red bg-onelife-red/10 border border-onelife-red/20 rounded-lg px-4 py-3">
           {error}
         </p>
       )}
       <button
         type="submit"
         disabled={loading}
-        className="w-full inline-flex items-center justify-center gap-2 bg-onelife-red hover:bg-[#d1171e] text-white font-semibold text-xs uppercase tracking-wider px-6 py-3.5 rounded shadow-sm transition-colors disabled:opacity-50"
+        className="w-full inline-flex items-center justify-center gap-2 bg-onelife-red hover:bg-[#d1171e] text-white font-semibold text-xs uppercase tracking-wider px-6 py-3.5 rounded-lg shadow-sm transition-colors disabled:opacity-50"
       >
         {loading && <Loader2 className="w-4 h-4 animate-spin" />}
         <span>{loading ? "Signing in…" : "Sign in"}</span>

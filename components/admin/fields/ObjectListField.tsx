@@ -52,7 +52,7 @@ export function ObjectListField({
         {rows.map((row, index) => (
           <div
             key={index}
-            className="border border-charcoal/15 rounded-lg p-4 bg-warm-white space-y-3"
+            className="border border-charcoal/15 rounded-xl p-4 bg-warm-white space-y-3"
           >
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-grey">
@@ -108,7 +108,7 @@ export function ObjectListField({
                         rows={2}
                         value={row[field.key] ?? ""}
                         onChange={(e) => updateRow(index, field.key, e.target.value)}
-                        className="w-full px-3 py-2 text-xs bg-white border border-charcoal/15 rounded focus:outline-none focus:border-charcoal"
+                        className="w-full px-3 py-2 text-xs bg-white border border-charcoal/15 rounded-lg transition-shadow focus:outline-none focus:border-charcoal focus:ring-2 focus:ring-onelife-red/15"
                       />
                     </div>
                   ) : (
@@ -120,7 +120,7 @@ export function ObjectListField({
                         type="text"
                         value={row[field.key] ?? ""}
                         onChange={(e) => updateRow(index, field.key, e.target.value)}
-                        className="w-full px-3 py-2 text-xs bg-white border border-charcoal/15 rounded focus:outline-none focus:border-charcoal"
+                        className="w-full px-3 py-2 text-xs bg-white border border-charcoal/15 rounded-lg transition-shadow focus:outline-none focus:border-charcoal focus:ring-2 focus:ring-onelife-red/15"
                       />
                     </div>
                   )}
@@ -133,7 +133,7 @@ export function ObjectListField({
       <button
         type="button"
         onClick={() => onChange([...rows, emptyRow(itemFields)])}
-        className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-charcoal border border-charcoal/20 rounded px-3 py-1.5 hover:border-charcoal"
+        className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-charcoal border border-charcoal/20 rounded-lg px-3 py-1.5 hover:border-charcoal hover:bg-white transition-colors"
       >
         <Plus className="w-3.5 h-3.5" />
         <span>Add item</span>

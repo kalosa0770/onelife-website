@@ -92,6 +92,12 @@ const singletons: SingletonDefinition[] = [
     fields: [
       { key: "eyebrow", label: "Eyebrow", type: "text" },
       { key: "description", label: "Description", type: "textarea" },
+      {
+        key: "backgroundImage",
+        label: "Hero Background Image",
+        type: "image",
+        helpText: "Shown faintly behind the hero text.",
+      },
     ],
   },
   {
@@ -113,6 +119,12 @@ const singletons: SingletonDefinition[] = [
     fields: [
       { key: "eyebrow", label: "Eyebrow", type: "text" },
       { key: "description", label: "Description", type: "textarea" },
+      {
+        key: "backgroundImage",
+        label: "Hero Background Image",
+        type: "image",
+        helpText: "Shown faintly behind the hero text.",
+      },
     ],
   },
   {
@@ -122,6 +134,12 @@ const singletons: SingletonDefinition[] = [
     fields: [
       { key: "eyebrow", label: "Eyebrow", type: "text" },
       { key: "description", label: "Description", type: "textarea" },
+      {
+        key: "backgroundImage",
+        label: "Hero Background Image",
+        type: "image",
+        helpText: "Shown faintly behind the hero text.",
+      },
     ],
   },
   {
@@ -131,6 +149,12 @@ const singletons: SingletonDefinition[] = [
     fields: [
       { key: "eyebrow", label: "Eyebrow", type: "text" },
       { key: "description", label: "Description", type: "textarea" },
+      {
+        key: "backgroundImage",
+        label: "Hero Background Image",
+        type: "image",
+        helpText: "Shown faintly behind the hero text.",
+      },
     ],
   },
   {

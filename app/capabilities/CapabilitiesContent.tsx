@@ -44,15 +44,31 @@ export function CapabilitiesContent({ intro, sections, cta }: CapabilitiesConten
     <div className="min-h-screen bg-warm-white text-charcoal flex flex-col justify-between">
       <main>
         {/* 1. HERO HEADER */}
-        <section className="relative pt-20 pb-20 px-4 sm:px-8 border-b border-charcoal/10 bg-warm-white overflow-hidden">
+        <section className="relative pt-28 pb-24 sm:pt-36 sm:pb-32 px-4 sm:px-8 overflow-hidden bg-charcoal">
+          {/* Background Image */}
+          {intro.backgroundImage && (
+            <div className="absolute inset-0">
+              <Image
+                src={intro.backgroundImage}
+                alt=""
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover opacity-40"
+              />
+            </div>
+          )}
+          {/* Darkening Overlay */}
+          <div className="absolute inset-0 bg-charcoal/70 pointer-events-none" />
+
           {/* Watermark */}
-          <div className="absolute right-[-100px] -top-16 w-[550px] h-[550px] pointer-events-none opacity-[0.035] select-none">
-            <svg viewBox="0 0 100 100" fill="none" stroke="#2B2B2D" strokeWidth="1.5">
+          <div className="absolute right-[-100px] -top-16 w-[550px] h-[550px] pointer-events-none opacity-[0.05] select-none">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#FFFFFF" strokeWidth="1.5">
               <path d="M 50,50 m -40,0 a 40,38 0 1,0 80,0 a 40,38 0 1,0 -80,0" strokeDasharray="240 10" />
             </svg>
           </div>
 
-          <div className="max-w-5xl mx-auto text-center">
+          <div className="max-w-5xl mx-auto text-center relative z-10">
             <motion.div
               variants={containerVariants}
               initial="hidden"
@@ -67,7 +83,7 @@ export function CapabilitiesContent({ intro, sections, cta }: CapabilitiesConten
 
               <motion.p
                 variants={itemVariants}
-                className="text-base sm:text-lg text-slate-grey font-normal leading-relaxed max-w-3xl mx-auto"
+                className="text-base sm:text-lg text-white/90 font-normal leading-relaxed max-w-3xl mx-auto"
               >
                 {intro.description}
               </motion.p>

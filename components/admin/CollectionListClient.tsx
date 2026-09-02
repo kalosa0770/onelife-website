@@ -59,7 +59,7 @@ export function CollectionListClient({
       <div className="flex justify-end">
         <Link
           href={`/admin/collections/${collection}/new`}
-          className="inline-flex items-center gap-2 bg-onelife-red hover:bg-[#d1171e] text-white font-semibold text-xs uppercase tracking-wider px-5 py-2.5 rounded shadow-sm transition-colors"
+          className="inline-flex items-center gap-2 bg-onelife-red hover:bg-[#d1171e] text-white font-semibold text-xs uppercase tracking-wider px-5 py-2.5 rounded-lg shadow-sm transition-colors"
         >
           <Plus className="w-4 h-4" />
           <span>Add new</span>
@@ -67,15 +67,15 @@ export function CollectionListClient({
       </div>
 
       {items.length === 0 ? (
-        <p className="text-sm text-slate-grey py-8 text-center border border-dashed border-charcoal/15 rounded-lg">
+        <p className="text-sm text-slate-grey py-10 text-center border border-dashed border-charcoal/15 rounded-xl">
           Nothing here yet.
         </p>
       ) : (
-        <div className="border border-charcoal/10 rounded-lg divide-y divide-charcoal/10 bg-white overflow-hidden">
+        <div className="border border-charcoal/10 rounded-xl divide-y divide-charcoal/10 bg-white overflow-hidden shadow-sm">
           {items.map((item, index) => (
             <div
               key={item.id}
-              className="flex items-center gap-4 px-5 py-4"
+              className="flex flex-wrap sm:flex-nowrap items-center gap-x-4 gap-y-2 px-4 sm:px-5 py-4 hover:bg-warm-white/60 transition-colors"
             >
               <div className="flex flex-col shrink-0">
                 <button
@@ -98,7 +98,7 @@ export function CollectionListClient({
                 </button>
               </div>
 
-              <div className="flex-1 min-w-0">
+              <div className="flex-1 min-w-[10rem]">
                 <p className="font-semibold text-sm text-charcoal truncate">
                   {item.title || "(untitled)"}
                 </p>
@@ -107,23 +107,25 @@ export function CollectionListClient({
                 )}
               </div>
 
-              <Link
-                href={`/admin/collections/${collection}/${item.id}`}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-charcoal hover:text-onelife-red shrink-0"
-              >
-                <Pencil className="w-3.5 h-3.5" />
-                <span>Edit</span>
-              </Link>
+              <div className="flex items-center gap-3 ml-auto shrink-0">
+                <Link
+                  href={`/admin/collections/${collection}/${item.id}`}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-charcoal hover:text-onelife-red"
+                >
+                  <Pencil className="w-3.5 h-3.5" />
+                  <span>Edit</span>
+                </Link>
 
-              <button
-                type="button"
-                onClick={() => remove(item.id)}
-                disabled={busyId === item.id}
-                className="text-slate-grey hover:text-onelife-red p-1 shrink-0 disabled:opacity-50"
-                aria-label="Delete"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
+                <button
+                  type="button"
+                  onClick={() => remove(item.id)}
+                  disabled={busyId === item.id}
+                  className="text-slate-grey hover:text-onelife-red p-1 disabled:opacity-50"
+                  aria-label="Delete"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           ))}
         </div>

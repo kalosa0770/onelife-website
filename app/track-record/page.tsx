@@ -11,7 +11,11 @@ export const dynamic = "force-dynamic";
 
 export default async function TrackRecordPage() {
   const [intro, stats, milestones, caseStudies] = await Promise.all([
-    getSingleton<EyebrowDescription>("track-record-intro", { eyebrow: "", description: "" }),
+    getSingleton<EyebrowDescription>("track-record-intro", {
+      eyebrow: "",
+      description: "",
+      backgroundImage: "",
+    }),
     getItems<TrackRecordStat>("track-record-stats", { value: "", label: "", icon: "ShieldCheck" }),
     getItems<TrackRecordMilestone>("track-record-milestones", {
       year: "",

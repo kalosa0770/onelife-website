@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { PasswordInput } from "./fields/PasswordInput";
 
 export function ChangePasswordForm() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -43,52 +44,37 @@ export function ChangePasswordForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-sm">
-      <div className="space-y-1.5">
-        <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal">
-          Current Password
-        </label>
-        <input
-          type="password"
-          required
-          value={currentPassword}
-          onChange={(e) => setCurrentPassword(e.target.value)}
-          className="w-full px-3 py-2.5 text-sm bg-white border border-charcoal/15 rounded focus:outline-none focus:border-charcoal"
-        />
-      </div>
-      <div className="space-y-1.5">
-        <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal">
-          New Password
-        </label>
-        <input
-          type="password"
-          required
-          minLength={8}
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          className="w-full px-3 py-2.5 text-sm bg-white border border-charcoal/15 rounded focus:outline-none focus:border-charcoal"
-        />
-      </div>
-      <div className="space-y-1.5">
-        <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal">
-          Confirm New Password
-        </label>
-        <input
-          type="password"
-          required
-          minLength={8}
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className="w-full px-3 py-2.5 text-sm bg-white border border-charcoal/15 rounded focus:outline-none focus:border-charcoal"
-        />
-      </div>
+      <PasswordInput
+        label="Current Password"
+        required
+        value={currentPassword}
+        onChange={setCurrentPassword}
+        autoComplete="current-password"
+      />
+      <PasswordInput
+        label="New Password"
+        required
+        minLength={8}
+        value={newPassword}
+        onChange={setNewPassword}
+        autoComplete="new-password"
+      />
+      <PasswordInput
+        label="Confirm New Password"
+        required
+        minLength={8}
+        value={confirmPassword}
+        onChange={setConfirmPassword}
+        autoComplete="new-password"
+      />
 
       {error && (
-        <p className="text-sm text-onelife-red bg-onelife-red/10 border border-onelife-red/20 rounded px-4 py-3">
+        <p className="text-sm text-onelife-red bg-onelife-red/10 border border-onelife-red/20 rounded-lg px-4 py-3">
           {error}
         </p>
       )}
       {success && (
-        <p className="text-sm text-green-700 bg-green-50 border border-green-200 rounded px-4 py-3">
+        <p className="text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg px-4 py-3">
           Password updated.
         </p>
       )}
@@ -96,7 +82,7 @@ export function ChangePasswordForm() {
       <button
         type="submit"
         disabled={loading}
-        className="inline-flex items-center gap-2 bg-onelife-red hover:bg-[#d1171e] text-white font-semibold text-xs uppercase tracking-wider px-6 py-3 rounded shadow-sm transition-colors disabled:opacity-50"
+        className="inline-flex items-center gap-2 bg-onelife-red hover:bg-[#d1171e] text-white font-semibold text-xs uppercase tracking-wider px-6 py-3 rounded-lg shadow-sm transition-colors disabled:opacity-50"
       >
         {loading && <Loader2 className="w-4 h-4 animate-spin" />}
         <span>{loading ? "Saving…" : "Update Password"}</span>

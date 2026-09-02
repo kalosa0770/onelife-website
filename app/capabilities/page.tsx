@@ -10,7 +10,11 @@ export const dynamic = "force-dynamic";
 
 export default async function CapabilitiesPage() {
   const [intro, sections, cta] = await Promise.all([
-    getSingleton<EyebrowDescription>("capabilities-intro", { eyebrow: "", description: "" }),
+    getSingleton<EyebrowDescription>("capabilities-intro", {
+      eyebrow: "",
+      description: "",
+      backgroundImage: "",
+    }),
     getItems<CapabilitySection>("capability-sections", {
       slug: "",
       badge: "",

@@ -4,6 +4,8 @@ import { prisma } from "@/lib/db";
 import { getSingletonDefinition } from "@/lib/content/registry";
 import { withDefaults } from "@/lib/content/defaults";
 import { SingletonEditor } from "@/components/admin/SingletonEditor";
+import { PageHeader } from "@/components/admin/PageHeader";
+import { AdminCard } from "@/components/admin/AdminCard";
 
 interface PageProps {
   params: Promise<{ key: string }>;
@@ -18,22 +20,18 @@ export default async function SingletonPage({ params }: PageProps) {
 
   return (
     <div>
-      <h1 className="font-heading font-bold text-xl text-charcoal mb-1">
-        {definition.label}
-      </h1>
-      {definition.description && (
-        <p className="text-sm text-slate-grey mb-6">{definition.description}</p>
-      )}
-      {!definition.description && <div className="mb-6" />}
-      <SingletonEditor
-        singletonKey={key}
-        fields={definition.fields}
-        initialValues={withDefaults(
-          definition.fields,
-          (row?.data as Record<string, unknown>) ?? {}
-        )}
-        backHref="/admin"
-      />
+      <PageHeader title={definition.label} description={definition.description} />
+      <AdminCard className="max-w-2xl">
+        <SingletonEditor
+          singletonKey={key}
+          fields={definition.fields}
+          initialValues={withDefaults(
+            definition.fields,
+            (row?.data as Record<string, unknown>) ?? {}
+          )}
+          backHref="/admin"
+        />
+      </AdminCard>
     </div>
   );
 }

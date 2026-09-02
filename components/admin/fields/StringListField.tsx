@@ -49,7 +49,7 @@ export function StringListField({
               type="text"
               value={text}
               onChange={(e) => update(index, e.target.value)}
-              className="flex-1 px-3 py-2 text-xs bg-white border border-charcoal/15 rounded focus:outline-none focus:border-charcoal"
+              className="flex-1 px-3 py-2 text-xs bg-white border border-charcoal/15 rounded-lg transition-shadow focus:outline-none focus:border-charcoal focus:ring-2 focus:ring-onelife-red/15"
             />
             <button
               type="button"
@@ -83,7 +83,7 @@ export function StringListField({
       <button
         type="button"
         onClick={() => onChange([...items, ""])}
-        className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-charcoal border border-charcoal/20 rounded px-3 py-1.5 hover:border-charcoal"
+        className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-charcoal border border-charcoal/20 rounded-lg px-3 py-1.5 hover:border-charcoal hover:bg-warm-white transition-colors"
       >
         <Plus className="w-3.5 h-3.5" />
         <span>Add item</span>

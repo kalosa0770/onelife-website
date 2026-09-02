@@ -36,6 +36,7 @@ export interface EyebrowHeading {
 export interface EyebrowDescription {
   eyebrow: string;
   description: string;
+  backgroundImage: string;
 }
 
 export interface WhoWeAreHome {

@@ -108,6 +108,8 @@ async function main() {
     eyebrow: "Our Capabilities",
     description:
       "We do not sell a rigid agency menu. We diagnose the strategic challenge first, then assemble the exact blend of brand, events, trade intelligence, and digital delivery to solve it.",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=2069&auto=format&fit=crop",
   });
 
   await seedSingleton("capabilities-cta", {
@@ -123,18 +125,24 @@ async function main() {
     eyebrow: "Track Record & Proof",
     description:
       "We are a 14 year proof platform that is backed by real execution across banking, agriculture, public health, trade corridors, and regional investment.",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2000&auto=format&fit=crop",
   });
 
   await seedSingleton("ventures-intro", {
     eyebrow: "Forward Motion & Incubation",
     description:
       "Beyond traditional advisory, OneLife acts as an incubator and corridor manager, initiating platforms that unlock cross-border trade, specialized services, and SME acceleration.",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2000&auto=format&fit=crop",
   });
 
   await seedSingleton("who-we-are-hero", {
     eyebrow: "Who We Are",
     description:
       "For over 14 years, OneLife has partnered with African enterprises, institutions, and development actors to deliver strategically grounded, creatively bold work across Zambia and the SADC-COMESA region.",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2000&auto=format&fit=crop",
   });
 
   await seedSingleton("imperfect-philosophy", {

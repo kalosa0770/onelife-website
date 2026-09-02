@@ -41,8 +41,8 @@ export function ImageField({ label, value, onChange, helpText }: ImageFieldProps
       <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal">
         {label}
       </label>
-      <div className="flex items-start gap-4">
-        <div className="relative w-28 h-28 rounded border border-charcoal/15 bg-warm-white overflow-hidden shrink-0">
+      <div className="flex flex-col sm:flex-row items-start gap-4">
+        <div className="relative w-28 h-28 rounded-lg border border-charcoal/15 bg-warm-white overflow-hidden shrink-0">
           {value ? (
             <Image src={value} alt="" fill className="object-cover" unoptimized />
           ) : (
@@ -51,13 +51,13 @@ export function ImageField({ label, value, onChange, helpText }: ImageFieldProps
             </div>
           )}
         </div>
-        <div className="flex-1 space-y-2">
+        <div className="flex-1 w-full space-y-2">
           <input
             type="text"
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder="Image URL, or upload a file"
-            className="w-full px-3 py-2 text-xs bg-white border border-charcoal/15 rounded focus:outline-none focus:border-charcoal"
+            className="w-full px-3.5 py-2 text-xs bg-white border border-charcoal/15 rounded-lg transition-shadow focus:outline-none focus:border-charcoal focus:ring-2 focus:ring-onelife-red/15"
           />
           <input
             ref={inputRef}
@@ -74,7 +74,7 @@ export function ImageField({ label, value, onChange, helpText }: ImageFieldProps
             type="button"
             onClick={() => inputRef.current?.click()}
             disabled={uploading}
-            className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-charcoal border border-charcoal/20 rounded px-3 py-1.5 hover:border-charcoal disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-charcoal border border-charcoal/20 rounded-lg px-3 py-1.5 hover:border-charcoal hover:bg-warm-white transition-colors disabled:opacity-50"
           >
             {uploading ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin" />

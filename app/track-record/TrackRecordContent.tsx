@@ -50,13 +50,29 @@ export function TrackRecordContent({
     <div className="min-h-screen bg-warm-white text-charcoal flex flex-col justify-between">
       <main>
         {/* HERO SECTION */}
-        <section className="relative pt-20 pb-20 px-4 sm:px-8 border-b border-charcoal/10 bg-warm-white overflow-hidden">
-          <div className="max-w-5xl mx-auto text-center">
+        <section className="relative pt-28 pb-24 sm:pt-36 sm:pb-32 px-4 sm:px-8 overflow-hidden bg-charcoal">
+          {/* Background Image */}
+          {intro.backgroundImage && (
+            <div className="absolute inset-0">
+              <Image
+                src={intro.backgroundImage}
+                alt=""
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover opacity-40"
+              />
+            </div>
+          )}
+          {/* Darkening Overlay */}
+          <div className="absolute inset-0 bg-charcoal/70 pointer-events-none" />
+
+          <div className="max-w-5xl mx-auto text-center relative z-10">
             <motion.div variants={containerVariants} initial="hidden" animate="visible">
               <motion.span variants={itemVariants} className="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-onelife-red block mb-3">
                 {intro.eyebrow}
               </motion.span>
-              <motion.p variants={itemVariants} className="text-base sm:text-lg text-slate-grey font-normal leading-relaxed max-w-3xl mx-auto">
+              <motion.p variants={itemVariants} className="text-base sm:text-lg text-white/90 font-normal leading-relaxed max-w-3xl mx-auto">
                 {intro.description}
               </motion.p>
             </motion.div>

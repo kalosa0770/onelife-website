@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getCollectionDefinition } from "@/lib/content/registry";
 import { getDefaultData } from "@/lib/content/defaults";
 import { ItemEditor } from "@/components/admin/ItemEditor";
+import { PageHeader } from "@/components/admin/PageHeader";
+import { AdminCard } from "@/components/admin/AdminCard";
 
 interface PageProps {
   params: Promise<{ collection: string }>;
@@ -15,15 +17,15 @@ export default async function NewItemPage({ params }: PageProps) {
 
   return (
     <div>
-      <h1 className="font-heading font-bold text-xl text-charcoal mb-6">
-        New {definition.label.replace(/s$/, "")}
-      </h1>
-      <ItemEditor
-        collection={collection}
-        fields={definition.fields}
-        initialValues={getDefaultData(definition.fields)}
-        backHref={`/admin/collections/${collection}`}
-      />
+      <PageHeader title={`New ${definition.label.replace(/s$/, "")}`} />
+      <AdminCard className="max-w-2xl">
+        <ItemEditor
+          collection={collection}
+          fields={definition.fields}
+          initialValues={getDefaultData(definition.fields)}
+          backHref={`/admin/collections/${collection}`}
+        />
+      </AdminCard>
     </div>
   );
 }

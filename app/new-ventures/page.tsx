@@ -6,7 +6,11 @@ export const dynamic = "force-dynamic";
 
 export default async function NewVenturesPage() {
   const [intro, ventures] = await Promise.all([
-    getSingleton<EyebrowDescription>("ventures-intro", { eyebrow: "", description: "" }),
+    getSingleton<EyebrowDescription>("ventures-intro", {
+      eyebrow: "",
+      description: "",
+      backgroundImage: "",
+    }),
     getItems<Venture>("ventures", {
       badge: "",
       title: "",

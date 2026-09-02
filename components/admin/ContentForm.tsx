@@ -81,7 +81,7 @@ export function ContentForm({
                   type={field.type === "url" ? "url" : "text"}
                   value={(value as string) ?? ""}
                   onChange={(e) => set(field.key, e.target.value)}
-                  className="w-full px-3 py-2.5 text-sm bg-white border border-charcoal/15 rounded focus:outline-none focus:border-charcoal"
+                  className="w-full px-3.5 py-2.5 text-sm bg-white border border-charcoal/15 rounded-lg transition-shadow focus:outline-none focus:border-charcoal focus:ring-2 focus:ring-onelife-red/15"
                 />
                 {field.helpText && (
                   <p className="text-[11px] text-slate-grey">{field.helpText}</p>
@@ -96,7 +96,7 @@ export function ContentForm({
                   rows={field.rows ?? 3}
                   value={(value as string) ?? ""}
                   onChange={(e) => set(field.key, e.target.value)}
-                  className="w-full px-3 py-2.5 text-sm bg-white border border-charcoal/15 rounded focus:outline-none focus:border-charcoal"
+                  className="w-full px-3.5 py-2.5 text-sm bg-white border border-charcoal/15 rounded-lg transition-shadow focus:outline-none focus:border-charcoal focus:ring-2 focus:ring-onelife-red/15"
                 />
                 {field.helpText && (
                   <p className="text-[11px] text-slate-grey">{field.helpText}</p>
@@ -110,7 +110,7 @@ export function ContentForm({
                 <select
                   value={(value as string) ?? ""}
                   onChange={(e) => set(field.key, e.target.value)}
-                  className="w-full px-3 py-2.5 text-sm bg-white border border-charcoal/15 rounded focus:outline-none focus:border-charcoal"
+                  className="w-full px-3.5 py-2.5 text-sm bg-white border border-charcoal/15 rounded-lg transition-shadow focus:outline-none focus:border-charcoal focus:ring-2 focus:ring-onelife-red/15"
                 >
                   {field.options?.map((opt) => (
                     <option key={opt.value} value={opt.value}>
@@ -153,12 +153,12 @@ export function ContentForm({
       })}
 
       {error && (
-        <p className="text-sm text-onelife-red bg-onelife-red/10 border border-onelife-red/20 rounded px-4 py-3">
+        <p className="text-sm text-onelife-red bg-onelife-red/10 border border-onelife-red/20 rounded-lg px-4 py-3">
           {error}
         </p>
       )}
 
-      <div className="flex items-center justify-between pt-4 border-t border-charcoal/10">
+      <div className="flex flex-wrap items-center justify-between gap-4 pt-5 border-t border-charcoal/10">
         <div>
           {onDelete && (
             <button
@@ -172,18 +172,18 @@ export function ContentForm({
             </button>
           )}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4 ml-auto">
           <button
             type="button"
             onClick={() => router.push(backHref)}
-            className="text-xs font-semibold uppercase tracking-wider text-slate-grey hover:text-charcoal"
+            className="text-xs font-semibold uppercase tracking-wider text-slate-grey hover:text-charcoal transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={saving || deleting}
-            className="inline-flex items-center gap-2 bg-onelife-red hover:bg-[#d1171e] text-white font-semibold text-xs uppercase tracking-wider px-6 py-3 rounded shadow-sm transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 bg-onelife-red hover:bg-[#d1171e] text-white font-semibold text-xs uppercase tracking-wider px-6 py-3 rounded-lg shadow-sm transition-colors disabled:opacity-50"
           >
             {saving ? (
               <Loader2 className="w-4 h-4 animate-spin" />
