@@ -475,7 +475,7 @@ async function main() {
       image:
         "https://images.unsplash.com/photo-1494412651409-8963ce7935a7?q=80&w=1200&auto=format&fit=crop",
       accentColorHex: "#1B3A5C",
-      externalHref: "https://impex.onelife.co.zm",
+      externalHref: "/platforms/impex",
       isExternal: "false",
       linkLabel: "Visit IMPEX",
     },
@@ -492,9 +492,9 @@ async function main() {
       image:
         "https://images.unsplash.com/photo-1591115765373-5207764f72e7?q=80&w=1200&auto=format&fit=crop",
       accentColorHex: "#D6336C",
-      externalHref: "https://smartwomansummit.co.zm",
+      externalHref: "/platforms/smart-woman-summit",
       isExternal: "false",
-      linkLabel: "Explore 2026 Edition",
+      linkLabel: "Explore 2027 Edition",
     },
     {
       name: "OneLife Trade Intelligence",

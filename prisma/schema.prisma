@@ -46,3 +46,16 @@ model Item {
 
   @@index([collection, order])
 }
+
+/// Public form submissions (SWS register-interest / partner enquiry, IMPEX
+/// delegate registration / partner enquiry). `form` is an id from
+/// `lib/forms/definitions.ts`; `data` holds the validated answers plus
+/// attribution (UTMs, referrer) under `_meta`.
+model FormSubmission {
+  id        String   @id @default(cuid())
+  form      String
+  data      Json
+  createdAt DateTime @default(now())
+
+  @@index([form, createdAt])
+}
