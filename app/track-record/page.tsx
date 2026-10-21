@@ -1,43 +1,13 @@
 import { TrackRecordContent } from "./TrackRecordContent";
-import { getSingleton, getItems } from "@/lib/content/read";
-import type {
-  EyebrowDescription,
-  TrackRecordStat,
-  TrackRecordMilestone,
-  TrackRecordCaseStudy,
-} from "@/lib/content/read";
+import { TRACK_RECORD_CONTENT } from "@/lib/site/content-data";
 
-export const dynamic = "force-dynamic";
-
-export default async function TrackRecordPage() {
-  const [intro, stats, milestones, caseStudies] = await Promise.all([
-    getSingleton<EyebrowDescription>("track-record-intro", {
-      eyebrow: "",
-      description: "",
-      backgroundImage: "",
-    }),
-    getItems<TrackRecordStat>("track-record-stats", { value: "", label: "", icon: "ShieldCheck" }),
-    getItems<TrackRecordMilestone>("track-record-milestones", {
-      year: "",
-      title: "",
-      description: "",
-    }),
-    getItems<TrackRecordCaseStudy>("track-record-case-studies", {
-      category: "",
-      title: "",
-      challenge: "",
-      solution: "",
-      impact: "",
-      image: "",
-    }),
-  ]);
-
+export default function TrackRecordPage() {
   return (
     <TrackRecordContent
-      intro={intro}
-      stats={stats}
-      milestones={milestones}
-      caseStudies={caseStudies}
+      intro={TRACK_RECORD_CONTENT.intro}
+      stats={TRACK_RECORD_CONTENT.stats}
+      milestones={TRACK_RECORD_CONTENT.milestones}
+      caseStudies={TRACK_RECORD_CONTENT.caseStudies}
     />
   );
 }

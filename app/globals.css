@@ -3,15 +3,19 @@
 @theme {
   /* Colors */
   --color-background: #FAFAF8;
-  --color-foreground: #2B2B2D;
+  --color-foreground: #1F1F22;
   --color-onelife-red: #ED1C24;
-  --color-charcoal: #6E6E70;
-  --color-slate-grey: var(--slate-grey);
+  --color-charcoal: #2B2B2D;
+  --color-slate-grey: #5C5C61;
   --color-warm-white: #FFFFFF;
-  
+  --color-surface: #F4F4F0;
+
   --color-impex-blue: #1B3A5C;
+  --color-impex-green: #1F4D3A;
+  --color-impex-amber: #D99A1E;
   --color-sws-rose: #D6336C;
   --color-oti-gold: #C9A961;
+  --color-health-teal: #0F766E;
 
   /* Fonts (Mapped from Next.js font variables in layout.tsx) */
   --font-heading: var(--font-poppins), sans-serif;
@@ -21,11 +25,12 @@
 /* Global Document Defaults */
 html {
   scroll-behavior: smooth;
-  background-color: var(--background);
+  background-color: var(--color-background);
 }
 
 body {
-  background-color: var(--background);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
@@ -43,6 +48,26 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Global Selection Highlight */
 ::selection {
-  background-color: var(--onelife-red);
-  color: var(--pure-white);
+  background-color: var(--color-onelife-red);
+  color: #fff;
+}
+
+/* Keyboard focus ring for interactive elements */
+:focus-visible {
+  outline: 2px solid var(--color-onelife-red);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Hides the scrollbar on horizontally scrolling tab bars */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

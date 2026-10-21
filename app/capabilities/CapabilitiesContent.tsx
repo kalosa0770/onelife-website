@@ -5,13 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { getIcon } from "@/lib/content/icons";
+import { getIcon } from "@/lib/site/icons";
 import type {
   EyebrowDescription,
   CapabilitySection,
   HeadingOnly,
   WithId,
-} from "@/lib/content/read";
+} from "@/lib/site/content";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -180,7 +180,7 @@ export function CapabilitiesContent({ intro, sections, cta }: CapabilitiesConten
 
                     <div className="pt-4">
                       <Link
-                        href="/#contact"
+                        href="/contact"
                         className="inline-flex items-center gap-2 text-xs font-heading font-bold uppercase tracking-wider text-onelife-red hover:underline"
                       >
                         <span>Get More Information</span>
@@ -206,7 +206,7 @@ export function CapabilitiesContent({ intro, sections, cta }: CapabilitiesConten
             </h2>
             <div>
               <Link
-                href="/#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 bg-background hover:bg-background/90 text-onelife-red font-heading font-semibold text-xs uppercase tracking-wider px-8 py-4 rounded shadow-lg transition-all duration-200"
               >
                 <span>Contact Us Now</span>

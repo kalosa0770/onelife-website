@@ -1,466 +1,232 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { MapPin, Mail, Menu, X, ChevronDown } from "lucide-react";
 import {
-  MapPin,
-  Mail,
-  ChevronDown,
-  Menu,
-  X,
-} from "lucide-react";
-import Image from "next/image";
-import type { SiteSettings } from "@/lib/content/read";
+  NAV_SECTIONS,
+  getActiveSection,
+  isItemActive,
+} from "@/lib/site/nav";
+import { SITE_SETTINGS } from "@/lib/site/content-data";
+import { SubNav } from "@/components/site/SubNav";
+import { SocialLinks } from "@/components/site/SocialLinks";
 
-const NAV_LINKS = [
-  { href: "/who-we-are", label: "Who We Are" },
-  { href: "/capabilities", label: "Capabilities" },
-  { href: "/track-record", label: "Track Record" },
-  { href: "/new-ventures", label: "Ventures" },
-];
-
-export interface NavPlatform {
-  slug: string;
-  name: string;
-  accentColorHex: string;
-  externalHref: string;
-  isExternal: "true" | "false";
-}
-
-interface NavbarProps {
-  siteSettings: SiteSettings;
-  platforms: NavPlatform[];
-}
-
-export const Navbar = ({ siteSettings, platforms }: NavbarProps) => {
-  const pathname = usePathname();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [platformDropdownOpen, setPlatformDropdownOpen] = useState(false);
-  const [mobilePlatformsOpen, setMobilePlatformsOpen] = useState(false);
-  const platformDropdownRef = useRef<HTMLDivElement>(null);
-
-  // Highlights OTI specifically in the utility bar, same as the original
-  // design — falls back to nothing if that platform is ever removed/renamed.
-  const otiPlatform = platforms.find((p) => p.slug === "oti");
-
-  function closeMobileMenu() {
-    setMobileMenuOpen(false);
-    setMobilePlatformsOpen(false);
-  }
-
-  // A link is "active" on an exact match for Home ("/"), and on an exact
-  // match or nested-route match for everything else (e.g. /capabilities#events
-  // or /capabilities/some-slug should still highlight "Capabilities").
-  const isLinkActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    return pathname === href || pathname?.startsWith(`${href}/`);
-  };
+export const Navbar = () => {
+  const pathname = usePathname() ?? "/";
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openSection, setOpenSection] = useState<string | null>(null);
+  const active = getActiveSection(pathname);
 
   // Lock body scroll while the mobile drawer is open
   useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [mobileMenuOpen]);
+  }, [mobileOpen]);
 
-  // Close the desktop Platforms dropdown on outside click and on Escape
   useEffect(() => {
-    if (!platformDropdownOpen) return;
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && closeMobile();
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
 
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        platformDropdownRef.current &&
-        !platformDropdownRef.current.contains(e.target as Node)
-      ) {
-        setPlatformDropdownOpen(false);
-      }
-    };
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setPlatformDropdownOpen(false);
-    };
+  function closeMobile() {
+    setMobileOpen(false);
+  }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscape);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [platformDropdownOpen]);
-
-  if (pathname?.startsWith("/admin")) return null;
+  function openDrawer() {
+    setOpenSection(active?.id ?? null);
+    setMobileOpen(true);
+  }
 
   return (
-    <header className="w-full sticky top-0 z-50 shadow-sm bg-warm-white">
-      {/* 1. TOP UTILITY BAR */}
-      <div className="hidden sm:block bg-onelife-red text-white text-xs py-2 px-4 sm:px-8 border-b border-white/10">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          
-          {/* Left: Contact Info */}
-          <div className="flex items-center gap-6 text-white/80 text-[11px] font-medium tracking-wider">
-            <div className="flex items-center gap-1.5 hover:text-warm-white transition-colors">
-              <MapPin className="w-3.5 h-3.5 text-onelife-red shrink-0" />
-              <span>{siteSettings.address}</span>
-            </div>
-            <div className="flex items-center gap-1.5 hover:text-warm-white transition-colors">
-              <Mail className="w-3.5 h-3.5 text-onelife-red shrink-0" />
-              <a href={`mailto:${siteSettings.email}`}>{siteSettings.email}</a>
-            </div>
-          </div>
-
-          {/* Right: Ecosystem Link & Social SVGs */}
-          <div className="flex items-center gap-4">
-            {otiPlatform && (
-              <>
-                <span className="hidden md:inline text-[11px] text-white/80 uppercase tracking-wider">
-                  Owned Ecosystem:
-                </span>
-                <a
-                  href={otiPlatform.externalHref}
-                  target={otiPlatform.isExternal === "true" ? "_blank" : undefined}
-                  rel={otiPlatform.isExternal === "true" ? "noopener noreferrer" : undefined}
-                  className="text-white/80 hover:text-oti-gold transition-colors text-[11px] font-medium"
-                >
-                  OTI Substack
-                </a>
-                <span className="text-white/20">|</span>
-              </>
+    <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
+      {/* Utility bar */}
+      <div className="hidden bg-charcoal px-8 py-1.5 text-white/80 md:block">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 text-[11px] font-medium tracking-wide">
+          <div className="flex items-center gap-6">
+            {SITE_SETTINGS.address && (
+              <span className="flex items-center gap-1.5">
+                <MapPin className="h-3.5 w-3.5 shrink-0 text-onelife-red" />
+                {SITE_SETTINGS.address}
+              </span>
             )}
-
-            {/* Social Links (Inline SVGs) */}
-            <div className="flex items-center gap-3.5 text-white/80">
-              {/* LinkedIn */}
+            {SITE_SETTINGS.email && (
               <a
-                href={siteSettings.linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-warm-white transition-colors"
-                aria-label="LinkedIn"
+                href={`mailto:${SITE_SETTINGS.email}`}
+                className="flex items-center gap-1.5 transition-colors hover:text-white"
               >
-                <svg 
-                  className="w-3.5 h-3.5" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                >
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                  <rect x="2" y="9" width="4" height="12" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
+                <Mail className="h-3.5 w-3.5 shrink-0 text-onelife-red" />
+                {SITE_SETTINGS.email}
               </a>
-
-              {/* X (formerly Twitter) */}
-              <a 
-                href={siteSettings.xUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-warm-white transition-colors"
-                aria-label="X (Twitter)"
-              >
-                <svg 
-                  className="w-3.5 h-3.5" 
-                  viewBox="0 0 24 24" 
-                  fill="currentColor"
-                >
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </a>
-
-              {/* Instagram */}
-              <a 
-                href={siteSettings.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-warm-white transition-colors"
-                aria-label="Instagram"
-              >
-                <svg 
-                  className="w-3.5 h-3.5" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                </svg>
-              </a>
-            </div>
+            )}
           </div>
+          <SocialLinks siteSettings={SITE_SETTINGS} className="gap-4" iconClassName="h-3.5 w-3.5" />
         </div>
       </div>
 
-      {/* 2. MAIN NAVIGATION */}
-      <nav className="border-b border-charcoal/10 py-3.5 px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-6">
-          
-          {/* Logo */}
-          <Link href="/" className="flex items-center shrink-0">
-            <Image src="/logo-onelife.jpg" alt="OneLife Logo" width={120} height={32} className="h-8 w-auto" />
+      {/* Main navigation: the three tabs */}
+      <nav aria-label="Primary" className="border-b border-charcoal/10 px-4 sm:px-8">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6">
+          <Link href="/" className="flex shrink-0 items-center" aria-label="OneLife home">
+            <Image
+              src="/logo-onelife.jpg"
+              alt="OneLife"
+              width={120}
+              height={32}
+              priority
+              className="h-8 w-auto"
+            />
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-8 font-heading text-[13px] font-semibold text-charcoal tracking-wider uppercase">
-            <Link 
-              href="/" 
-              className={`relative py-2 transition-colors ${
-                isLinkActive("/") ? "text-onelife-red" : "text-charcoal/80 hover:text-onelife-red"
-              }`}
-            >
-              Home
-              {isLinkActive("/") && (
-                <span className="absolute left-0 -bottom-[1px] w-full h-[2px] bg-onelife-red rounded-full" />
-              )}
-            </Link>
-            
-            {NAV_LINKS.slice(0, 2).map(({ href, label }) => {
-              const active = isLinkActive(href);
+          <ul className="hidden h-full items-stretch gap-1 lg:flex">
+            {NAV_SECTIONS.map((section) => {
+              const isActive = active?.id === section.id;
               return (
-                <Link 
-                  key={href} 
-                  href={href} 
-                  className={`relative py-2 transition-colors ${
-                    active ? "text-onelife-red" : "text-charcoal/80 hover:text-onelife-red"
-                  }`}
-                >
-                  {label}
-                  {active && (
-                    <span className="absolute left-0 -bottom-[1px] w-full h-[2px] bg-onelife-red rounded-full" />
-                  )}
-                </Link>
-              );
-            })}
-
-            {/* Dropdown for Owned Platforms — click to open/close */}
-            <div className="relative" ref={platformDropdownRef}>
-              <button 
-                onClick={() => setPlatformDropdownOpen((open) => !open)}
-                className="flex items-center gap-1 py-2 text-charcoal/80 hover:text-onelife-red transition-colors uppercase font-semibold"
-                aria-expanded={platformDropdownOpen}
-                aria-haspopup="true"
-              >
-                <span>Platforms</span>
-                <ChevronDown 
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                    platformDropdownOpen ? "rotate-180 text-onelife-red" : ""
-                  }`} 
-                />
-              </button>
-
-              <AnimatePresence>
-                {platformDropdownOpen && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 6 }}
-                    transition={{ duration: 0.18, ease: "easeOut" }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 w-72 bg-white border border-charcoal/10 rounded shadow-xl overflow-hidden py-1.5 z-50 normal-case tracking-normal"
+                <li key={section.id} className="flex">
+                  <Link
+                    href={section.href}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`relative flex items-center px-5 font-heading text-[13px] font-semibold uppercase tracking-wider transition-colors ${
+                      isActive ? "text-foreground" : "text-slate-grey hover:text-foreground"
+                    }`}
                   >
-                    {platforms.map(({ slug, name, accentColorHex }) => (
-                      <Link
-                        key={slug}
-                        href={`/platforms/${slug}`}
-                        onClick={() => setPlatformDropdownOpen(false)}
-                        className="block px-4 py-3 hover:bg-warm-white border-l-2 border-transparent transition-colors"
-                        style={{ borderLeftColor: accentColorHex }}
-                      >
-                        <span
-                          className="font-heading font-semibold text-xs flex items-center justify-between uppercase tracking-wider"
-                          style={{ color: accentColorHex }}
-                        >
-                          {name}
-                        </span>
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {NAV_LINKS.slice(2).map(({ href, label }) => {
-              const active = isLinkActive(href);
-              return (
-                <Link 
-                  key={href} 
-                  href={href} 
-                  className={`relative py-2 transition-colors ${
-                    active ? "text-onelife-red" : "text-charcoal/80 hover:text-onelife-red"
-                  }`}
-                >
-                  {label}
-                  {active && (
-                    <span className="absolute left-0 -bottom-[1px] w-full h-[2px] bg-onelife-red rounded-full" />
-                  )}
-                </Link>
+                    {section.label}
+                    <span
+                      className={`absolute inset-x-5 bottom-0 h-[3px] rounded-t-full transition-opacity ${
+                        isActive ? "opacity-100" : "opacity-0"
+                      }`}
+                      style={{ backgroundColor: section.accent }}
+                    />
+                  </Link>
+                </li>
               );
             })}
-          </div>
+          </ul>
 
-          {/* Right Action Button */}
-          <div className="hidden lg:flex items-center gap-4 shrink-0">
-            <Link 
-              href="#contact" 
-              className="bg-onelife-red hover:bg-[#d1171e] text-white font-heading font-semibold text-xs uppercase tracking-wider px-6 py-3 rounded shadow-sm hover:shadow-md transition-all duration-200"
+          <div className="hidden shrink-0 lg:block">
+            <Link
+              href="/contact"
+              className="rounded bg-onelife-red px-6 py-2.5 font-heading text-xs font-semibold uppercase tracking-wider text-white shadow-sm transition hover:bg-[#d1171e] hover:shadow-md"
             >
-              Reach Out
+              Contact Us
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle Button */}
-          <button 
-            onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden p-2 -mr-2 text-charcoal hover:text-onelife-red focus:outline-none focus-visible:ring-2 focus-visible:ring-onelife-red rounded transition-colors"
+          <button
+            onClick={openDrawer}
+            className="-mr-2 rounded p-2 text-foreground transition-colors hover:text-onelife-red lg:hidden"
             aria-label="Open navigation menu"
+            aria-expanded={mobileOpen}
           >
-            <Menu className="w-6 h-6" />
+            <Menu className="h-6 w-6" />
           </button>
         </div>
       </nav>
 
-      {/* 3. MOBILE DRAWER (slides in from the right) */}
+      {/* Uniform sub-navigation for the active tab */}
+      <SubNav pathname={pathname} section={active} />
+
+      {/* Mobile drawer */}
       <AnimatePresence>
-        {mobileMenuOpen && (
+        {mobileOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              onClick={() => closeMobileMenu()}
-              className="fixed inset-0 bg-charcoal/50 backdrop-blur-[2px] z-[60] lg:hidden"
+              onClick={closeMobile}
+              className="fixed inset-0 z-[60] bg-black/50 lg:hidden"
               aria-hidden="true"
             />
-
-            {/* Panel */}
-            <motion.div
+            <motion.aside
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ type: "tween", duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed right-0 top-0 z-[70] flex h-dvh w-full max-w-sm flex-col bg-white shadow-2xl lg:hidden"
               role="dialog"
               aria-modal="true"
-              aria-label="Mobile navigation"
-              className="fixed top-0 right-0 h-dvh w-[84%] max-w-sm bg-warm-white z-[70] lg:hidden flex flex-col shadow-2xl"
+              aria-label="Navigation menu"
             >
-              {/* Drawer Header */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-charcoal/10">
-                <Image src="/logo-onelife.jpg" alt="OneLife Logo" width={120} height={32} className="h-8 w-auto" />
-                <button 
-                  onClick={() => closeMobileMenu()}
-                  className="p-2 -mr-2 text-charcoal hover:text-onelife-red focus:outline-none focus-visible:ring-2 focus-visible:ring-onelife-red rounded transition-colors"
+              <div className="flex h-16 shrink-0 items-center justify-between border-b border-charcoal/10 px-5">
+                <Image src="/logo-onelife.jpg" alt="OneLife" width={120} height={32} className="h-8 w-auto" />
+                <button
+                  onClick={closeMobile}
+                  className="-mr-2 rounded p-2 text-foreground hover:text-onelife-red"
                   aria-label="Close navigation menu"
                 >
-                  <X className="w-5.5 h-5.5" />
+                  <X className="h-6 w-6" />
                 </button>
               </div>
 
-              {/* Drawer Links */}
-              <div className="flex-1 overflow-y-auto px-5 py-6 space-y-1 font-heading text-sm font-semibold">
-                <Link 
-                  href="/" 
-                  onClick={() => closeMobileMenu()}
-                  className={`block px-2 py-3 border-b border-charcoal/5 transition-colors ${
-                    isLinkActive("/") ? "text-onelife-red" : "text-charcoal hover:text-onelife-red"
-                  }`}
-                >
-                  Home
-                </Link>
-                {NAV_LINKS.slice(0, 2).map(({ href, label }) => (
-                  <Link 
-                    key={href}
-                    href={href} 
-                    onClick={() => closeMobileMenu()}
-                    className={`block px-2 py-3 border-b border-charcoal/5 transition-colors ${
-                      isLinkActive(href) ? "text-onelife-red" : "text-charcoal hover:text-onelife-red"
-                    }`}
-                  >
-                    {label}
-                  </Link>
-                ))}
-                
-                {/* Mobile Platforms — clickable accordion, same click-to-open pattern as desktop */}
-                <div className="border-b border-charcoal/5">
-                  <button
-                    onClick={() => setMobilePlatformsOpen((open) => !open)}
-                    aria-expanded={mobilePlatformsOpen}
-                    className="w-full flex items-center justify-between px-2 py-3 text-charcoal"
-                  >
-                    <span className="text-[11px] text-slate-grey uppercase tracking-widest font-bold">
-                      Platforms
-                    </span>
-                    <ChevronDown 
-                      className={`w-4 h-4 text-slate-grey transition-transform duration-200 ${
-                        mobilePlatformsOpen ? "rotate-180 text-onelife-red" : ""
-                      }`} 
-                    />
-                  </button>
-
-                  <AnimatePresence initial={false}>
-                    {mobilePlatformsOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.22, ease: "easeInOut" }}
-                        className="overflow-hidden"
+              <div className="flex-1 overflow-y-auto px-5 py-4">
+                {NAV_SECTIONS.map((section) => {
+                  const expanded = openSection === section.id;
+                  return (
+                    <div key={section.id} className="border-b border-charcoal/10 last:border-b-0">
+                      <button
+                        onClick={() => setOpenSection(expanded ? null : section.id)}
+                        aria-expanded={expanded}
+                        className="flex w-full items-center justify-between py-4 text-left font-heading text-sm font-semibold uppercase tracking-wider text-foreground"
                       >
-                        <div className="px-2 pb-4 space-y-3">
-                          {platforms.map(({ slug, name, accentColorHex }) => (
-                            <Link
-                              key={slug}
-                              href={`/platforms/${slug}`}
-                              onClick={() => closeMobileMenu()}
-                              className="flex items-center justify-between gap-2 group"
-                            >
-                              <span className="text-xs font-semibold" style={{ color: accentColorHex }}>
-                                {name}
-                              </span>
-                            </Link>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                {NAV_LINKS.slice(2).map(({ href, label }) => (
-                  <Link 
-                    key={href}
-                    href={href} 
-                    onClick={() => closeMobileMenu()}
-                    className={`block px-2 py-3 border-b border-charcoal/5 transition-colors ${
-                      isLinkActive(href) ? "text-onelife-red" : "text-charcoal hover:text-onelife-red"
-                    }`}
-                  >
-                    {label}
-                  </Link>
-                ))}
+                        <span className="flex items-center gap-3">
+                          <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: section.accent }} />
+                          {section.label}
+                        </span>
+                        <ChevronDown
+                          className={`h-4 w-4 text-slate-grey transition-transform ${expanded ? "rotate-180" : ""}`}
+                        />
+                      </button>
+                      {expanded && (
+                        <ul className="space-y-0.5 pb-4 pl-5">
+                          {section.items.map((item) => {
+                            const itemActive = isItemActive(pathname, item.href, section.items);
+                            return (
+                              <li key={item.href}>
+                                <Link
+                                  href={item.href}
+                                  onClick={closeMobile}
+                                  className={`block rounded px-3 py-2.5 text-sm transition-colors ${
+                                    itemActive
+                                      ? "bg-surface font-semibold text-foreground"
+                                      : "text-slate-grey hover:bg-surface hover:text-foreground"
+                                  }`}
+                                >
+                                  {item.label}
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
 
-              {/* Drawer Footer CTA */}
-              <div className="px-5 py-5 border-t border-charcoal/10">
-                <Link 
-                  href="#contact" 
-                  onClick={() => closeMobileMenu()}
-                  className="block text-center bg-onelife-red hover:bg-[#d1171e] text-white py-3.5 rounded uppercase tracking-wider text-xs font-semibold font-heading transition-colors"
+              <div className="shrink-0 space-y-4 border-t border-charcoal/10 p-5">
+                <Link
+                  href="/contact"
+                  onClick={closeMobile}
+                  className="block rounded bg-onelife-red py-3.5 text-center font-heading text-xs font-semibold uppercase tracking-wider text-white"
                 >
-                  Reach Out
+                  Contact Us
                 </Link>
-                <div className="flex items-center justify-center gap-2 mt-4 text-[11px] text-slate-grey">
-                  <MapPin className="w-3 h-3 text-onelife-red" />
-                  <span>{siteSettings.address}</span>
-                </div>
+                <SocialLinks
+                  siteSettings={SITE_SETTINGS}
+                  className="justify-center gap-5 text-slate-grey"
+                  iconClassName="h-5 w-5"
+                />
               </div>
-            </motion.div>
+            </motion.aside>
           </>
         )}
       </AnimatePresence>

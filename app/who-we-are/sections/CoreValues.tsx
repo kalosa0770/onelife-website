@@ -2,7 +2,7 @@
 
 import React from "react";
 import { ContentIcon } from "@/components/ContentIcon";
-import type { CoreValue, EyebrowHeading, WithId } from "@/lib/content/read";
+import type { CoreValue, EyebrowHeading, WithId } from "@/lib/site/content";
 
 interface CoreValuesProps {
   intro: EyebrowHeading;

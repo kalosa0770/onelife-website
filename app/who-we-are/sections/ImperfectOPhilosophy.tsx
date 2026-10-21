@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import type { ImperfectPhilosophy } from "@/lib/content/read";
+import type { ImperfectPhilosophy } from "@/lib/site/content";
 
 interface ImperfectOPhilosophyProps {
   content: ImperfectPhilosophy;

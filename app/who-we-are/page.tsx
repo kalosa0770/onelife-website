@@ -4,85 +4,22 @@ import { MissionVision } from "./sections/MissionVision";
 import { CoreValues } from "./sections/CoreValues";
 import { FourPhaseApproach } from "./sections/FourPhaseApproach";
 import { LeadershipAlliance } from "./sections/LeadershipAlliance";
-import { getSingleton, getItems } from "@/lib/content/read";
-import type {
-  EyebrowDescription,
-  EyebrowHeading,
-  ImperfectPhilosophy,
-  MissionVisionCard,
-  CoreValue,
-  FourPhaseStep,
-  LeadershipAllianceIntro,
-  StaffMember,
-  HighlightItem,
-} from "@/lib/content/read";
+import { WHO_WE_ARE_CONTENT } from "@/lib/site/content-data";
 
-export const dynamic = "force-dynamic";
-
-export default async function WhoWeArePage() {
-  const [
-    heroContent,
-    philosophy,
-    missionVisionCards,
-    coreValuesIntro,
-    coreValues,
-    fourPhaseIntro,
-    fourPhaseSteps,
-    allianceIntro,
-    staff,
-    allianceHighlights,
-  ] = await Promise.all([
-    getSingleton<EyebrowDescription>("who-we-are-hero", {
-      eyebrow: "",
-      description: "",
-      backgroundImage: "",
-    }),
-    getSingleton<ImperfectPhilosophy>("imperfect-philosophy", {
-      eyebrow: "",
-      heading: "",
-      paragraph1: "",
-      paragraph2: "",
-      quote: "",
-    }),
-    getItems<MissionVisionCard>("mission-vision-cards", {
-      eyebrow: "",
-      heading: "",
-      description: "",
-      image: "",
-    }),
-    getSingleton<EyebrowHeading>("core-values-intro", { eyebrow: "", heading: "" }),
-    getItems<CoreValue>("core-values", { title: "", description: "", icon: "Compass" }),
-    getSingleton<EyebrowDescription>("four-phase-intro", {
-      eyebrow: "",
-      description: "",
-      backgroundImage: "",
-    }),
-    getItems<FourPhaseStep>("four-phase-steps", { step: "", name: "", detail: "" }),
-    getSingleton<LeadershipAllianceIntro>("leadership-alliance-intro", {
-      eyebrow: "",
-      heading: "",
-      description: "",
-    }),
-    getItems<StaffMember>("staff", {
-      name: "",
-      role: "",
-      bio: "",
-      photoUrl: "",
-      isFeatured: "false",
-      highlights: [],
-    }),
-    getItems<HighlightItem>("alliance-highlights", { icon: "ShieldCheck", title: "", body: "" }),
-  ]);
-
+export default function WhoWeArePage() {
   return (
     <div className="min-h-screen bg-warm-white text-charcoal flex flex-col justify-between">
       <main>
-        <WhoWeAreHero content={heroContent} />
-        <ImperfectOPhilosophy content={philosophy} />
-        <MissionVision cards={missionVisionCards} />
-        <CoreValues intro={coreValuesIntro} values={coreValues} />
-        <FourPhaseApproach intro={fourPhaseIntro} steps={fourPhaseSteps} />
-        <LeadershipAlliance intro={allianceIntro} staff={staff} highlights={allianceHighlights} />
+        <WhoWeAreHero content={WHO_WE_ARE_CONTENT.hero} />
+        <ImperfectOPhilosophy content={WHO_WE_ARE_CONTENT.philosophy} />
+        <MissionVision cards={WHO_WE_ARE_CONTENT.missionVision} />
+        <CoreValues intro={WHO_WE_ARE_CONTENT.coreValuesIntro} values={WHO_WE_ARE_CONTENT.coreValues} />
+        <FourPhaseApproach intro={WHO_WE_ARE_CONTENT.fourPhaseIntro} steps={WHO_WE_ARE_CONTENT.fourPhaseSteps} />
+        <LeadershipAlliance
+          intro={WHO_WE_ARE_CONTENT.allianceIntro}
+          staff={WHO_WE_ARE_CONTENT.staff}
+          highlights={WHO_WE_ARE_CONTENT.allianceHighlights}
+        />
       </main>
     </div>
   );

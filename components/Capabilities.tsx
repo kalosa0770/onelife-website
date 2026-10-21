@@ -10,7 +10,7 @@ import type {
   CapabilityHomeCard,
   CapabilitiesHomeIntro,
   WithId,
-} from "@/lib/content/read";
+} from "@/lib/site/content";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -39,28 +39,27 @@ interface CapabilitiesProps {
 
 export const Capabilities = ({ intro, cards }: CapabilitiesProps) => {
   return (
-    <section 
-      id="capabilities" 
-      className="py-12 bg-[#F4F4F0] border-y border-charcoal/10 px-4 sm:px-8 relative overflow-hidden"
+    <section
+      id="capabilities"
+      className="relative overflow-hidden border-y border-charcoal/10 bg-[#F4F4F0] px-4 py-20 sm:px-8 md:py-28"
     >
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-5xl mx-auto mb-16">
-          <span className="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-onelife-red block mb-2">
-            {intro.eyebrow}
-          </span>
-          <h2 className="font-heading font-bold text-xl md:text-2xl text-charcoal tracking-tight mb-4">
-            {intro.heading}
-          </h2>
-          <p className="text-[12px] sm:text-base text-slate-grey leading-relaxed">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-10 grid grid-cols-1 items-end gap-5 sm:mb-14 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-7">
+            <span className="mb-3 block text-xs font-heading font-semibold uppercase tracking-[0.2em] text-onelife-red">
+              {intro.eyebrow}
+            </span>
+            <h2 className="max-w-3xl font-heading text-3xl font-bold leading-tight tracking-tight text-charcoal sm:text-4xl md:text-5xl">
+              {intro.heading}
+            </h2>
+          </div>
+          <p className="max-w-xl text-sm leading-relaxed text-slate-grey sm:text-base lg:col-span-5 lg:justify-self-end">
             {intro.description}
           </p>
         </div>
 
-        {/* 4 Cards Grid (Matching Reference Template) */}
-        <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        <motion.div
+          className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -71,45 +70,45 @@ export const Capabilities = ({ intro, cards }: CapabilitiesProps) => {
               <motion.div
                 key={item.id}
                 variants={cardVariants}
-                className="group relative h-96 rounded-lg overflow-hidden shadow-md border border-charcoal/10 flex flex-col justify-end p-6 bg-charcoal"
+                className="group relative flex min-h-[22rem] flex-col justify-end overflow-hidden rounded-2xl border border-charcoal/10 bg-charcoal p-5 shadow-sm transition-shadow duration-300 hover:shadow-xl sm:min-h-[24rem] sm:p-6"
               >
-                {/* Background Image with Zoom on Hover */}
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
 
-                {/* Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent pointer-events-none" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/5" />
 
-                {/* Foreground Content */}
-                <div className="relative z-10 text-warm-white flex flex-col justify-end h-full">
-                  {/* Circular Line Icon Badge */}
-                  <div className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-4 transition-colors group-hover:bg-onelife-red group-hover:border-onelife-red">
-                    <ContentIcon name={item.icon} className="w-5 h-5 text-warm-white" strokeWidth={2} />
+                <div className="relative z-10 flex h-full flex-col justify-end text-warm-white">
+                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm transition-colors group-hover:border-onelife-red group-hover:bg-onelife-red">
+                    <ContentIcon
+                      name={item.icon}
+                      className="h-5 w-5 text-warm-white"
+                      strokeWidth={2}
+                    />
                   </div>
 
-                  <span className="text-[10px] font-heading font-semibold uppercase tracking-wider text-white/70 block mb-1">
+                  <span className="mb-1 block text-xs font-heading font-semibold uppercase tracking-wider text-white/75">
                     {item.subtitle}
                   </span>
 
-                  <h3 className="font-heading font-bold text-lg sm:text-xl text-warm-white mb-2 leading-snug">
+                  <h3 className="mb-2 font-heading text-xl font-bold leading-snug text-warm-white">
                     {item.title}
                   </h3>
 
-                  <p className="text-xs text-white leading-relaxed line-clamp-3 mb-4">
+                  <p className="mb-5 line-clamp-3 text-sm leading-relaxed text-white/85">
                     {item.description}
                   </p>
 
                   <Link
                     href={item.link}
-                    className="inline-flex items-center gap-1.5 text-xs font-heading font-semibold uppercase tracking-wider text-onelife-red hover:text-white transition-colors group-hover:translate-x-0.5 duration-200"
+                    className="inline-flex min-h-8 items-center gap-2 text-xs font-heading font-bold uppercase tracking-wider text-white transition-colors hover:text-onelife-red"
                   >
-                    <span>Read More</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <span>Explore</span>
+                    <ArrowRight className="h-4 w-4 text-onelife-red transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </motion.div>
@@ -118,16 +117,15 @@ export const Capabilities = ({ intro, cards }: CapabilitiesProps) => {
         </motion.div>
 
         {/* View All Capabilities CTA */}
-        <div className="mt-14 text-center">
+        <div className="mt-10 text-center sm:mt-12">
           <Link
             href="/capabilities"
-            className="inline-flex items-center justify-center gap-2 bg-charcoal hover:bg-black text-warm-white font-heading font-semibold text-xs uppercase tracking-wider px-8 py-4 rounded shadow transition-all duration-200"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-charcoal px-7 py-3 font-heading text-xs font-semibold uppercase tracking-wider text-warm-white transition-colors hover:bg-black sm:px-8"
           >
-            <span>Explore All Capabilities</span>
-            <ArrowRight className="w-4 h-4 text-onelife-red" />
+            <span>View All Capabilities</span>
+            <ArrowRight className="h-4 w-4 text-onelife-red" />
           </Link>
         </div>
-
       </div>
     </section>
   );

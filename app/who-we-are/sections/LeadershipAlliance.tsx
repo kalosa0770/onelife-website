@@ -10,7 +10,7 @@ import type {
   StaffMember,
   HighlightItem,
   WithId,
-} from "@/lib/content/read";
+} from "@/lib/site/content";
 
 interface LeadershipAllianceProps {
   intro: LeadershipAllianceIntro;
@@ -81,7 +81,7 @@ export const LeadershipAlliance = ({
 
           <div className="pt-4">
             <Link
-              href="/#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 bg-onelife-red hover:bg-[#d1171e] text-white font-heading font-semibold text-xs uppercase tracking-wider px-7 py-4 rounded transition-all duration-200"
             >
               <span>Contact Maria</span>

@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import type { MissionVisionCard, WithId } from "@/lib/content/read";
+import type { MissionVisionCard, WithId } from "@/lib/site/content";
 
 interface MissionVisionProps {
   cards: WithId<MissionVisionCard>[];

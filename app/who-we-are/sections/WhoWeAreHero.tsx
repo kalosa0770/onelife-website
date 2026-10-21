@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import type { EyebrowDescription } from "@/lib/content/read";
+import type { EyebrowDescription } from "@/lib/site/content";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },

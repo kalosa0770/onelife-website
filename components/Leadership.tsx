@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ShieldCheck, ArrowRight } from "lucide-react";
 import { ContentIcon } from "@/components/ContentIcon";
-import type { StaffMember, WithId, EyebrowHeading } from "@/lib/content/read";
+import type { StaffMember, WithId, EyebrowHeading } from "@/lib/site/content";
 
 const fadeInLeft: Variants = {
   hidden: { opacity: 0, x: -30 },

@@ -9,17 +9,6 @@ import Script from "next/script";
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
-type Win = Window & {
-  fbq?: (...args: unknown[]) => void;
-  gtag?: (...args: unknown[]) => void;
-};
-
-export function trackConversion(conversion: { pixelEvent: string; gaEvent: string }, form: string) {
-  const w = window as Win;
-  w.fbq?.("track", conversion.pixelEvent, { content_name: form });
-  w.gtag?.("event", conversion.gaEvent, { form_id: form });
-}
-
 export const Tracking = () => (
   <>
     {GA_ID && (

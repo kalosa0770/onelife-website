@@ -11,7 +11,7 @@ import type {
   TrackRecordMilestone,
   TrackRecordCaseStudy,
   WithId,
-} from "@/lib/content/read";
+} from "@/lib/site/content";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -158,7 +158,7 @@ export function TrackRecordContent({
                   </div>
 
                   <div className="p-6 sm:p-8 pt-0 border-t border-charcoal/5">
-                    <Link href="/#contact" className="inline-flex items-center gap-2 text-xs font-heading font-bold uppercase text-onelife-red hover:underline">
+                    <Link href="/contact" className="inline-flex items-center gap-2 text-xs font-heading font-bold uppercase text-onelife-red hover:underline">
                       <span>Get More Information</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>

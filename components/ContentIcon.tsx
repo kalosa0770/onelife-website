@@ -1,4 +1,4 @@
-import { getIcon } from "@/lib/content/icons";
+import { getIcon } from "@/lib/site/icons";
 
 interface ContentIconProps {
   name: string;
@@ -7,13 +7,7 @@ interface ContentIconProps {
 }
 
 /**
- * Renders an icon chosen by name from an admin-editable field (see
- * lib/content/icons.ts). Centralized here so the "look up a component by a
- * data-driven key" pattern — which the React Compiler's static-components
- * lint rule can't distinguish from actually constructing a new component —
- * only needs justifying once. `getIcon` always resolves to a stable
- * reference from a static registry, never a freshly created component, so
- * this never causes the remounts that rule protects against.
+ * Renders a named icon from the site's static icon registry.
  */
 export function ContentIcon({ name, className, strokeWidth }: ContentIconProps) {
   const Icon = getIcon(name);

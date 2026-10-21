@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import type { EyebrowDescription, FourPhaseStep, WithId } from "@/lib/content/read";
+import type { EyebrowDescription, FourPhaseStep, WithId } from "@/lib/site/content";
 
 interface FourPhaseApproachProps {
   intro: EyebrowDescription;
