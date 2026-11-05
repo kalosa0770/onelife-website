@@ -12,16 +12,9 @@ const platforms = [
   {
     eyebrow: "OneLife Events",
     title: "Smart Woman Summit ’27",
-    text: "Money Out Loud: a year-round women’s financial literacy community with a flagship summit on 13 March 2027.",
+    text: "Money Out Loud: a year-round women’s financial literacy community with a flagship summit, dates to be announced.",
     href: "/events/smart-woman-summit",
     color: "text-sws-rose",
-  },
-  {
-    eyebrow: "OneLife Health Corridor",
-    title: "Zambia–Zimbabwe Health Corridor",
-    text: "Cross-border care coordinated through trusted referrals, aligned provider and insurer standards, and transparent patient communication.",
-    href: "/health-corridor",
-    color: "text-health-teal",
   },
 ];
 
@@ -35,7 +28,7 @@ export function Platforms() {
             Platforms that connect people, trade and care.
           </h2>
         </div>
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2">
           {platforms.map((p) => (
             <Link key={p.href} href={p.href} className="group flex flex-col border border-charcoal/10 bg-white p-6 transition-shadow hover:shadow-lg">
               <p className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${p.color}`}>{p.eyebrow}</p>

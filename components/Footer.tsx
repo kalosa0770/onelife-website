@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Mail } from "lucide-react";
+import { MapPin, Mail, ArrowUpRight } from "lucide-react";
 import { HOME_NAV_ITEMS } from "@/lib/site/nav";
 import { SITE_SETTINGS } from "@/lib/site/content-data";
 import { SocialLinks } from "@/components/site/SocialLinks";
@@ -11,26 +11,36 @@ export const Footer = () => {
   return (
     <footer className="bg-charcoal px-4 pb-8 pt-16 text-white sm:px-8">
       <div className="mx-auto max-w-7xl">
-        <section aria-labelledby="partners-heading" className="mb-12 border-b border-white/10 pb-10">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-            <div>
+        <section aria-labelledby="partners-heading" className="mb-12 border-b border-white/10 pb-12">
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-5">
               <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-onelife-red">In good company</p>
-              <h2 id="partners-heading" className="font-heading text-xl font-semibold text-white">
+              <h2 id="partners-heading" className="font-heading text-2xl font-semibold text-white">
                 Our Partners
               </h2>
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-white/65">
+                Our creative delivery partner, extending production, digital distribution and multi-market media capability across our campaigns and platforms.
+              </p>
             </div>
-            <div
-              aria-label="Mélange Digital, creative delivery partner"
-              className="inline-flex min-h-20 items-center gap-4 self-start rounded-lg border border-white/10 bg-white/[0.04] px-6 py-4 sm:self-auto"
+            <a
+              href="https://melangedigital.co/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Mélange Digital, creative delivery partner (opens in a new tab)"
+              className="group flex flex-col gap-5 rounded-xl bg-white p-6 shadow-lg transition hover:shadow-2xl sm:flex-row sm:items-center sm:justify-between lg:col-span-7 lg:px-10"
             >
-              <span aria-hidden="true" className="flex h-11 w-11 items-center justify-center rounded-full bg-white font-heading text-xl font-bold text-charcoal">
-                M
+              <Image
+                src="/logo-melange.png"
+                alt="Mélange Digital"
+                width={774}
+                height={192}
+                className="h-14 w-auto self-start sm:h-16"
+              />
+              <span className="inline-flex items-center gap-2 font-heading text-xs font-semibold uppercase tracking-wider text-charcoal">
+                Visit melangedigital.co
+                <ArrowUpRight className="h-4 w-4 text-onelife-red transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </span>
-              <span className="leading-tight">
-                <span className="block font-heading text-base font-semibold tracking-[0.08em] text-white">MÉLANGE</span>
-                <span className="mt-1 block text-[10px] font-medium uppercase tracking-[0.28em] text-white/55">Digital</span>
-              </span>
-            </div>
+            </a>
           </div>
         </section>
 

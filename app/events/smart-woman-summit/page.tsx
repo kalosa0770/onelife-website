@@ -9,7 +9,7 @@ import { Register } from "./_sections/Register";
 export const metadata: Metadata = {
   title: "Smart Woman Summit ’27 | Money Out Loud | OneLife",
   description:
-    "Smart Woman Summit — Zambia's most established women's financial literacy platform, founded and run by OneLife. 2027 edition: Money Out Loud, Saturday 13 March 2027, Lusaka.",
+    "Smart Woman Summit — Zambia's most established women's financial literacy platform, founded and run by OneLife. 2027 edition: Money Out Loud, Lusaka. Dates to be announced.",
 };
 
 export default function SummitPage() {
@@ -26,21 +26,22 @@ export default function SummitPage() {
             Your money mindset. Your relationship with money.
           </p>
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-sm font-medium text-white/90">
-            <span className="flex items-center gap-2"><CalendarDays className="h-4 w-4" style={{ color: "#F06595" }} />Saturday, 13 March 2027</span>
+            <span className="flex items-center gap-2"><CalendarDays className="h-4 w-4" style={{ color: "#F06595" }} />Dates to be announced</span>
             <span className="flex items-center gap-2"><MapPin className="h-4 w-4" style={{ color: "#F06595" }} />Lusaka</span>
           </div>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href="#register">Register your interest</ButtonLink>
-            <ButtonLink href="#event" variant="outline-light">2027 event details</ButtonLink>
+            <ButtonLink href="#event" variant="outline-light">Event dates</ButtonLink>
           </div>
         </div>
       </section>
 
       <Section id="about">
-        <SectionHeading eyebrow="About the Summit" accent={ROSE} title="Zambia’s most established women’s financial literacy platform." />
+        <SectionHeading eyebrow="What it is" accent={ROSE} title="Zambia’s most established women’s financial literacy platform." />
         <Prose>
           <p>Smart Woman Summit is founded and run by OneLife, and 2027 is its 4th edition. Since 2023 it has brought women together to talk honestly about money — earning it, growing it, protecting it.</p>
           <p>SWS isn&rsquo;t just one day a year. It&rsquo;s a year-round platform, and the Summit is its flagship day. The Sip &amp; Read Book Club and SME Month are part of the same story — a road you can join right now.</p>
+          <p>The 2027 theme is <strong className="text-foreground">Money Out Loud</strong>. Most of us learned about money in whispers — what we earn, what we owe, what we&rsquo;re afraid to ask. In 2027 we&rsquo;re turning the volume up on your money mindset and your relationship with money.</p>
         </Prose>
         <div className="mt-10 grid max-w-md grid-cols-2 gap-4">
           <Card>
@@ -55,14 +56,6 @@ export default function SummitPage() {
       </Section>
 
       <Section tone="surface">
-        <SectionHeading eyebrow="The 2027 theme" accent={ROSE} title="Money Out Loud." />
-        <Prose>
-          <p>Most of us learned about money in whispers. What we earn. What we owe. What we&rsquo;re afraid to ask. Those are the conversations women don&rsquo;t have out loud &mdash; and they shape every financial decision we make.</p>
-          <p>In 2027 we&rsquo;re turning the volume up on your money mindset and your relationship with money: what you believe, what you were taught, and what you want it to look like from here.</p>
-        </Prose>
-      </Section>
-
-      <Section>
         <SectionHeading eyebrow="Who it’s for" accent={ROSE} title="The five women of SWS." />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {segments.map((s) => (

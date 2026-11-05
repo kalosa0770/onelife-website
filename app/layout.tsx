@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Poppins, Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -11,10 +12,10 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
+const parkinsans = localFont({
+  src: "../public/fonts/parkinsans-regular.ttf",
+  weight: "400",
+  variable: "--font-parkinsans",
   display: "swap",
 });
 
@@ -33,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${inter.variable}`}>
+    <html lang="en" className={`${poppins.variable} ${parkinsans.variable}`}>
       <body>
         <Navbar />
         {children}

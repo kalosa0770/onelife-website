@@ -2,8 +2,6 @@ import type {
   CapabilityHomeCard,
   CapabilitySection,
   CoreValue,
-  CorridorHospital,
-  CorridorInsurer,
   EyebrowDescription,
   EyebrowHeading,
   FourPhaseStep,
@@ -391,6 +389,3 @@ export const TRACK_RECORD_CONTENT = {
     },
   ] satisfies (TrackRecordCaseStudy & { id: string })[],
 };
-
-export const CORRIDOR_HOSPITALS: CorridorHospital[] = [];
-export const CORRIDOR_INSURERS: CorridorInsurer[] = [];

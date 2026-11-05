@@ -6,7 +6,6 @@ The OneLife Communications & Events Company marketing site, built with Next.js 1
 
 - **OneLife:** Home, Who We Are, Capabilities, Track Record & Clients, and Contact.
 - **OneLife Events:** IMPEX and Smart Woman Summit, including their corridor, ledger, OTI, financial literacy, event details, and registration pages.
-- **OneLife Health Corridor:** About, Registered Hospitals, Partner Health Insurance, and Contact.
 
 ## Local development
 

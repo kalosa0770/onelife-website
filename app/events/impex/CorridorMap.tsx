@@ -21,7 +21,7 @@ export const CorridorMap = () => (
           fontSize="12"
           fill="#FFFFFF"
           fillOpacity="0.85"
-          fontFamily="var(--font-inter), sans-serif"
+          fontFamily="var(--font-parkinsans), sans-serif"
         >
           {n.label}
         </text>

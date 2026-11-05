@@ -124,18 +124,6 @@ export const FORMS = {
       { name: "message", label: "Message", type: "textarea", required: true, maxLength: 2000 },
     ],
   },
-  "health-corridor": {
-    id: "health-corridor",
-    subject: "OneLife Health Corridor — enquiry",
-    submitLabel: "Send enquiry",
-    fields: [
-      { name: "name", label: "Full name", type: "text", required: true, maxLength: 120 },
-      { name: "email", label: "Email", type: "email", required: true, maxLength: 200 },
-      { name: "organisation", label: "Organisation", type: "text", maxLength: 160 },
-      { name: "interest", label: "I am a…", type: "select", required: true, options: options(["Hospital or clinic", "Health insurer", "Government or regulator", "Patient or family", "Other"]) },
-      { name: "message", label: "Message", type: "textarea", required: true, maxLength: 2000 },
-    ],
-  },
 } satisfies Record<string, FormDefinition>;
 
 export function isVisible(field: FormField, values: Record<string, unknown>) {

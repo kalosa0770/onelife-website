@@ -133,24 +133,6 @@ export interface StaffMember {
   highlights: HighlightItem[];
 }
 
-export interface CorridorHospital {
-  name: string;
-  city: string;
-  country: string;
-  specialities: string[];
-  description: string;
-  logo: string;
-  website: string;
-}
-
-export interface CorridorInsurer {
-  name: string;
-  country: string;
-  description: string;
-  logo: string;
-  website: string;
-}
-
 export interface MissionVisionCard {
   eyebrow: string;
   heading: string;

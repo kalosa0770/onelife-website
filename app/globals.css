@@ -19,7 +19,7 @@
 
   /* Fonts (Mapped from Next.js font variables in layout.tsx) */
   --font-heading: var(--font-poppins), sans-serif;
-  --font-body: var(--font-inter), sans-serif;
+  --font-body: var(--font-parkinsans), sans-serif;
 }
 
 /* Global Document Defaults */
@@ -70,4 +70,41 @@ h1, h2, h3, h4, h5, h6 {
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+@keyframes track-record-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.track-record-track {
+  width: max-content;
+}
+
+.track-record-track[data-paused="false"] {
+  animation: track-record-scroll 56s linear infinite;
+}
+
+.track-record-viewport:hover .track-record-track,
+.track-record-track[data-paused="true"] {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track-record-motion-control {
+    display: none;
+  }
+
+  .track-record-viewport {
+    overflow-x: auto;
+  }
+
+  .track-record-track {
+    animation: none;
+  }
+
+  .track-record-track ul[aria-hidden="true"] {
+    display: none;
+  }
 }
