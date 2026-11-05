@@ -1,27 +1,18 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { MapPin, ExternalLink } from "lucide-react";
-import { ButtonLink, Card, EmptyState, PageHero, Section, TEAL } from "@/components/site/ui";
+import { Card, EmptyState, Section, SectionHeading, TEAL } from "@/components/site/ui";
 import { CORRIDOR_HOSPITALS } from "@/lib/site/content-data";
 
-export const metadata: Metadata = {
-  title: "Registered Hospitals | OneLife Health Corridor",
-  description: "Hospitals and clinics registered on the OneLife Zambia–Zimbabwe Health Corridor.",
-};
-
-export default function RegisteredHospitalsPage() {
+export function Hospitals() {
   return (
     <>
-      <PageHero
-        eyebrow="OneLife Health Corridor"
-        accent={TEAL}
-        title="Registered hospitals"
-        intro="Hospitals and clinics that have been onboarded to the corridor and meet its service and referral standards."
-      >
-        <ButtonLink href="/health-corridor/contact">Register your hospital</ButtonLink>
-      </PageHero>
-
-      <Section tone="surface">
+      <Section id="hospitals">
+        <SectionHeading
+          eyebrow="Registered hospitals"
+          accent={TEAL}
+          title="Hospitals on the corridor"
+          intro="Hospitals and clinics that have been onboarded to the corridor and meet its service and referral standards."
+        />
         {CORRIDOR_HOSPITALS.length === 0 ? (
           <EmptyState
             title="Hospital onboarding is under way"

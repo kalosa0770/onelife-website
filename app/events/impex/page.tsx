@@ -3,6 +3,10 @@ import { ButtonLink, Card, Section, SectionHeading, Prose } from "@/components/s
 import { CorridorMap } from "./CorridorMap";
 import { GREEN, AMBER, activities, facts, pipeline, delegates, partnerTracks, otiLink } from "./data";
 import { Mail } from "lucide-react";
+import { Corridors } from "./_sections/Corridors";
+import { Ledger } from "./_sections/Ledger";
+import { Oti } from "./_sections/Oti";
+import { Register } from "./_sections/Register";
 
 export const metadata: Metadata = {
   title: "About IMPEX 2027 | Trade Intelligence to Deal Room | OneLife",
@@ -10,7 +14,7 @@ export const metadata: Metadata = {
     "IMPEX 2027 is a practitioner deal-making summit in Lusaka, Zambia — where OTI's trade intelligence becomes a deal room across six SADC-COMESA corridors.",
 };
 
-export default function ImpexAboutPage() {
+export default function ImpexPage() {
   return (
     <>
       <section className="relative overflow-hidden bg-charcoal px-4 py-16 text-white sm:px-8 lg:py-24">
@@ -30,15 +34,15 @@ export default function ImpexAboutPage() {
               IMPEX (Intra-African Trade &amp; Manufacturers&rsquo; Exchange) is the live-event end of a year-round pipeline: OTI identifies and tracks the projects, IMPEX convenes the capital, the policy support, and the implementers around them.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/events/impex/register">Register as a Founding Delegate</ButtonLink>
-              <ButtonLink href="/events/impex/corridors" variant="outline-light">Explore the corridors</ButtonLink>
+              <ButtonLink href="#register">Register as a Founding Delegate</ButtonLink>
+              <ButtonLink href="#corridors" variant="outline-light">Explore the corridors</ButtonLink>
             </div>
           </div>
           <CorridorMap />
         </div>
       </section>
 
-      <Section>
+      <Section id="about">
         <SectionHeading
           eyebrow="About IMPEX"
           accent={GREEN}
@@ -91,7 +95,7 @@ export default function ImpexAboutPage() {
               {delegates.map((d) => <li key={d}>{d}</li>)}
             </ul>
             <p className="mt-4 text-sm leading-relaxed text-slate-grey">Founding Delegate status is limited. Early registrants access pre-summit Deal Room preparation, OTI intelligence briefings, and priority corridor matching.</p>
-            <div className="mt-auto pt-6"><ButtonLink href="/events/impex/register">Secure your place</ButtonLink></div>
+            <div className="mt-auto pt-6"><ButtonLink href="#register">Secure your place</ButtonLink></div>
           </Card>
           <Card className="flex flex-col sm:p-8">
             <h3 className="font-heading text-xl font-bold" style={{ color: GREEN }}>Sponsors &amp; Strategic Partners</h3>
@@ -100,10 +104,15 @@ export default function ImpexAboutPage() {
                 <li key={name}><strong className="text-foreground">{name}</strong> &mdash; {desc}</li>
               ))}
             </ul>
-            <div className="mt-auto pt-6"><ButtonLink href="/events/impex/register#partner" variant="outline">Enquire about partnership</ButtonLink></div>
+            <div className="mt-auto pt-6"><ButtonLink href="#partner" variant="outline">Enquire about partnership</ButtonLink></div>
           </Card>
         </div>
       </Section>
+
+      <Corridors />
+      <Ledger />
+      <Oti />
+      <Register />
 
       <Section tone="surface">
         <div className="flex flex-col gap-6 text-sm text-slate-grey md:flex-row md:items-center md:justify-between">

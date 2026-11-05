@@ -1,31 +1,15 @@
-import type { Metadata } from "next";
-import { ButtonLink, Card, PageHero, Section, SectionHeading } from "@/components/site/ui";
+import { ButtonLink, Card, Section, SectionHeading } from "@/components/site/ui";
 import { GREEN, AMBER, corridors, ledger, otiLink } from "../data";
 
-export const metadata: Metadata = {
-  title: "The Ledger & Opportunity Register | IMPEX 2027 | OneLife",
-  description:
-    "The IMPEX Opportunity Register: a live, curated catalogue of verified trade and investment opportunities, published band by band in OTI's Ledger series.",
-};
-
-export default function ImpexLedgerPage() {
+export function Ledger() {
   return (
     <>
-      <PageHero
-        eyebrow="IMPEX 2027 · The Ledger"
-        accent={GREEN}
-        title="This Is What’s Actually on the Table"
-        intro="The Opportunity Register is a live, curated catalogue of verified trade, investment, and supply-chain opportunities across SADC-COMESA — published band by band in OTI’s Ledger series."
-      >
-        <ButtonLink href={otiLink("ledger-hero")} external>Subscribe to OTI</ButtonLink>
-      </PageHero>
-
-      <Section>
+      <Section id="ledger">
         <SectionHeading
-          eyebrow="Transaction bands"
+          eyebrow="The Ledger"
           accent={GREEN}
-          title="Opening the register, band by band"
-          intro="OTI publishes every Thursday. The Ledger opens each band of the Opportunity Register in turn."
+          title="This Is What’s Actually on the Table"
+          intro="The Opportunity Register is a live, curated catalogue of verified trade, investment, and supply-chain opportunities across SADC-COMESA — published band by band in OTI’s Ledger series. OTI publishes every Thursday."
         />
         <ul className="grid gap-5 md:grid-cols-3">
           {ledger.map((l) => (
@@ -85,7 +69,7 @@ export default function ImpexLedgerPage() {
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href={otiLink("register")} external variant="outline">Subscribe to OTI</ButtonLink>
-              <ButtonLink href="/events/impex/register">Register as a delegate</ButtonLink>
+              <ButtonLink href="#register">Register as a delegate</ButtonLink>
             </div>
           </div>
         </div>

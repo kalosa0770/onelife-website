@@ -1,28 +1,18 @@
-import type { Metadata } from "next";
 import { CalendarDays, MapPin, MessageCircle, Mail } from "lucide-react";
-import { ButtonLink, PageHero, Section, SectionHeading } from "@/components/site/ui";
+import { Section, SectionHeading } from "@/components/site/ui";
 import { SITE_SETTINGS } from "@/lib/site/content-data";
 import { ROSE, faqs, road, whatsappNumber } from "../data";
 
-export const metadata: Metadata = {
-  title: "2027 Event Details | Smart Woman Summit | OneLife",
-  description:
-    "Smart Woman Summit '27 — Money Out Loud. Saturday, 13 March 2027, Lusaka. Dates, programme, speakers and FAQs.",
-};
-
-export default function Summit2027Page() {
+export function EventDetails() {
   return (
     <>
-      <PageHero
-        eyebrow="Smart Woman Summit · 2027 event"
-        accent={ROSE}
-        title="Smart Woman Summit ’27: Money Out Loud."
-        intro="Zambia’s most established women’s financial literacy platform returns for its 4th edition."
-      >
-        <ButtonLink href="/events/smart-woman-summit/register">Register your interest</ButtonLink>
-      </PageHero>
-
-      <Section>
+      <Section id="event">
+        <SectionHeading
+          eyebrow="The 2027 event"
+          accent={ROSE}
+          title="Smart Woman Summit ’27: Money Out Loud."
+          intro="Zambia’s most established women’s financial literacy platform returns for its 4th edition."
+        />
         <div className="grid gap-5 sm:grid-cols-3">
           {[
             { icon: CalendarDays, label: "Date", value: "Saturday, 13 March 2027" },

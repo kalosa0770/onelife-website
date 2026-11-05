@@ -34,7 +34,7 @@ export const TrackRecord = ({ content, stats }: TrackRecordProps) => {
   return (
     <section
       id="track-record"
-      className="relative w-full overflow-hidden bg-charcoal py-20 text-warm-white sm:py-24 md:py-28"
+      className="relative scroll-mt-32 w-full overflow-hidden bg-charcoal py-20 text-warm-white sm:py-24 md:py-28"
     >
       <div className="absolute inset-0 z-0">
         <Image

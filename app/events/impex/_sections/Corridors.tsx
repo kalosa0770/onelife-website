@@ -1,25 +1,16 @@
-import type { Metadata } from "next";
-import { ButtonLink, Section, SectionHeading, PageHero, Checklist } from "@/components/site/ui";
-import { CorridorMap } from "../CorridorMap";
+import { ButtonLink, Section, SectionHeading, Checklist } from "@/components/site/ui";
 import { GREEN, AMBER, corridors } from "../data";
 
-export const metadata: Metadata = {
-  title: "Corridors Being Tracked | IMPEX 2027 | OneLife",
-  description: "The six SADC-COMESA corridors IMPEX and OTI track — from the Battery Value Chain to the Lobito Corridor.",
-};
-
-export default function ImpexCorridorsPage() {
+export function Corridors() {
   return (
     <>
-      <PageHero
-        eyebrow="IMPEX 2027 · Corridors being tracked"
-        accent={GREEN}
-        title="Six Corridors. One Room."
-        intro="Each corridor mirrors a live OTI editorial track — the intelligence and the deal flow run on the same rails — and carries a named Corridor Champion who chairs its session and vets its Deal Room applicants."
-        aside={<CorridorMap />}
-      />
-
-      <Section>
+      <Section id="corridors">
+        <SectionHeading
+          eyebrow="Corridors being tracked"
+          accent={GREEN}
+          title="Six Corridors. One Room."
+          intro="Each corridor mirrors a live OTI editorial track — the intelligence and the deal flow run on the same rails — and carries a named Corridor Champion who chairs its session and vets its Deal Room applicants."
+        />
         <div className="grid gap-5 md:grid-cols-2">
           {corridors.map((c) => (
             <article key={c.name} className="flex flex-col overflow-hidden rounded-xl border border-charcoal/10 bg-white shadow-sm transition hover:shadow-md">
@@ -55,8 +46,8 @@ export default function ImpexCorridorsPage() {
           />
         </div>
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-          <ButtonLink href="/events/impex/ledger">See the Ledger</ButtonLink>
-          <ButtonLink href="/events/impex/register#partner" variant="outline">Sponsor a corridor</ButtonLink>
+          <ButtonLink href="#ledger">See the Ledger</ButtonLink>
+          <ButtonLink href="#partner" variant="outline">Sponsor a corridor</ButtonLink>
         </div>
       </Section>
     </>

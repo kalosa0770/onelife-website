@@ -1,27 +1,15 @@
-import type { Metadata } from "next";
 import { LeadForm } from "@/components/forms/LeadForm";
-import { PageHero, Section, SectionHeading, Checklist } from "@/components/site/ui";
+import { Section, SectionHeading, Checklist } from "@/components/site/ui";
 import { GREEN, delegateBenefits } from "../data";
 
-export const metadata: Metadata = {
-  title: "Register for IMPEX 2027 | OneLife",
-  description: "Register as an IMPEX 2027 Founding Delegate or enquire about a category-exclusive partnership.",
-};
-
-export default function ImpexRegisterPage() {
+export function Register() {
   return (
     <>
-      <PageHero
-        eyebrow="IMPEX 2027 · Registrations"
-        accent={GREEN}
-        title="Founding Delegate Status Is Limited"
-        intro="IMPEX 2027 is a managed, invitation-quality event. Register now to secure priority Deal Room placement."
-      />
-
       <Section id="register">
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
-            <SectionHeading eyebrow="Founding Delegate registration" accent={GREEN} title="What Founding Delegate status confers" />
+            <SectionHeading eyebrow="Founding Delegate registration" accent={GREEN} title="Founding Delegate Status Is Limited" intro="IMPEX 2027 is a managed, invitation-quality event. Register now to secure priority Deal Room placement." />
+            <h3 className="mb-4 font-heading text-base font-bold">What Founding Delegate status confers</h3>
             <Checklist accent={GREEN} items={delegateBenefits} />
             <p className="mt-6 text-sm leading-relaxed text-slate-grey">
               The form opens a prefilled email draft. Send it to the IMPEX team to register your interest; the team can then follow up with qualification steps.

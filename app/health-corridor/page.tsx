@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Building2, ShieldCheck, Plane, HeartPulse } from "lucide-react";
 import { ButtonLink, Card, PageHero, Section, SectionHeading, TEAL, Checklist } from "@/components/site/ui";
+import { Hospitals } from "./_sections/Hospitals";
+import { Insurance } from "./_sections/Insurance";
+import { Contact } from "./_sections/Contact";
 
 export const metadata: Metadata = {
-  title: "About the Health Corridor | OneLife Health Corridor",
+  title: "OneLife Health Corridor | Zambia–Zimbabwe Medical Tourism",
   description:
     "OneLife serves as Corridor Manager for the Zambia–Zimbabwe medical tourism corridor, coordinating providers, insurers and institutions.",
 };
@@ -16,7 +19,7 @@ const pillars = [
   { icon: HeartPulse, title: "Patient trust", body: "Bespoke communications that build patient confidence and regulatory transparency." },
 ];
 
-export default function HealthCorridorAboutPage() {
+export default function HealthCorridorPage() {
   return (
     <>
       <PageHero
@@ -26,11 +29,11 @@ export default function HealthCorridorAboutPage() {
         intro="Serving as institutional Corridor Manager, OneLife coordinates bilateral stakeholder engagement, patient pathway protocols and service standardisation between healthcare providers and private insurers across Zambia and Zimbabwe."
         image="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1600&auto=format&fit=crop"
       >
-        <ButtonLink href="/health-corridor/registered-hospitals">Registered hospitals</ButtonLink>
-        <ButtonLink href="/health-corridor/contact" variant="outline-light">Get in touch</ButtonLink>
+        <ButtonLink href="#hospitals">Registered hospitals</ButtonLink>
+        <ButtonLink href="#contact" variant="outline-light">Get in touch</ButtonLink>
       </PageHero>
 
-      <Section>
+      <Section id="about">
         <SectionHeading eyebrow="About the Corridor" accent={TEAL} title="What the Corridor Manager does" />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {pillars.map(({ icon: Icon, title, body }) => (
@@ -59,8 +62,8 @@ export default function HealthCorridorAboutPage() {
               ]}
             />
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/health-corridor/partner-insurance">Partner health insurance</ButtonLink>
-              <ButtonLink href="/health-corridor/contact" variant="outline">Join the corridor</ButtonLink>
+              <ButtonLink href="#insurance">Partner health insurance</ButtonLink>
+              <ButtonLink href="#contact" variant="outline">Join the corridor</ButtonLink>
             </div>
           </div>
           <div className="relative h-72 overflow-hidden rounded-2xl shadow-xl sm:h-96">
@@ -74,6 +77,10 @@ export default function HealthCorridorAboutPage() {
           </div>
         </div>
       </Section>
+
+      <Hospitals />
+      <Insurance />
+      <Contact />
     </>
   );
 }

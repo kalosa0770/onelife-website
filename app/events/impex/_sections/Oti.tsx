@@ -1,32 +1,22 @@
-import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
-import { ButtonLink, Card, PageHero, Section, SectionHeading, Prose } from "@/components/site/ui";
+import { ButtonLink, Card, Section, SectionHeading, Prose } from "@/components/site/ui";
 import { GREEN, otiArticles, otiLink } from "../data";
 
-export const metadata: Metadata = {
-  title: "OTI — Onelife Trade Intelligence | IMPEX 2027 | OneLife",
-  description:
-    "OTI is a pan-African trade publication tracking deal flow, corridor infrastructure, capital access, and business policy across SADC-COMESA.",
-};
-
-export default function ImpexOtiPage() {
+export function Oti() {
   return (
     <>
-      <PageHero
-        eyebrow="IMPEX 2027 · OTI"
-        accent="#C9A961"
-        title="Every IMPEX Deal Starts With Intelligence"
-        intro="OTI — Onelife Trade Intelligence — is a pan-African trade publication that tracks deal flow, corridor infrastructure, capital access, and business policy across the SADC-COMESA region."
-      >
-        <ButtonLink href={otiLink("oti-hero")} external>Subscribe to OTI — free</ButtonLink>
-      </PageHero>
-
-      <Section>
-        <SectionHeading eyebrow="What is OTI?" accent={GREEN} title="The editorial engine behind IMPEX" />
+      <Section id="oti">
+        <SectionHeading
+          eyebrow="OTI · Onelife Trade Intelligence"
+          accent={GREEN}
+          title="Every IMPEX Deal Starts With Intelligence"
+          intro="OTI is a pan-African trade publication that tracks deal flow, corridor infrastructure, capital access, and business policy across the SADC-COMESA region."
+        />
         <Prose>
           <p>IMPEX does not exist in isolation. It is the annual culmination of OTI, published every Thursday and authored by Maria Masiri. Its current series, <em>The Ledger</em>, opens the Opportunity Register band by band.</p>
           <p>OTI subscribers get early intelligence on IMPEX deal flow, pre-qualified corridor opportunities, and first access to Founding Delegate registration windows and event dates.</p>
         </Prose>
+        <div className="mt-8"><ButtonLink href={otiLink("oti-hero")} external>Subscribe to OTI — free</ButtonLink></div>
       </Section>
 
       <Section tone="surface">

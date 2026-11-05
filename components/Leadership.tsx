@@ -40,7 +40,7 @@ export const Leadership = ({ intro, staff }: LeadershipProps) => {
   return (
     <section
       id="leadership"
-      className="py-24 px-4 sm:px-8 bg-warm-white relative overflow-hidden"
+      className="scroll-mt-32 py-24 px-4 sm:px-8 bg-warm-white relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 

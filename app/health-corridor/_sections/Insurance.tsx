@@ -1,27 +1,18 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
-import { ButtonLink, Card, EmptyState, PageHero, Section, TEAL } from "@/components/site/ui";
+import { Card, EmptyState, Section, SectionHeading, TEAL } from "@/components/site/ui";
 import { CORRIDOR_INSURERS } from "@/lib/site/content-data";
 
-export const metadata: Metadata = {
-  title: "Partner Health Insurance | OneLife Health Corridor",
-  description: "Health insurers partnering with the OneLife Zambia–Zimbabwe Health Corridor.",
-};
-
-export default function PartnerInsurancePage() {
+export function Insurance() {
   return (
     <>
-      <PageHero
-        eyebrow="OneLife Health Corridor"
-        accent={TEAL}
-        title="Partner health insurance"
-        intro="Insurers that recognise corridor hospitals and support smooth, transparent cross-border care for their members."
-      >
-        <ButtonLink href="/health-corridor/contact">Become an insurance partner</ButtonLink>
-      </PageHero>
-
-      <Section tone="surface">
+      <Section id="insurance" tone="surface">
+        <SectionHeading
+          eyebrow="Partner health insurance"
+          accent={TEAL}
+          title="Insurers backing cross-border care"
+          intro="Insurers that recognise corridor hospitals and support smooth, transparent cross-border care for their members."
+        />
         {CORRIDOR_INSURERS.length === 0 ? (
           <EmptyState
             title="Insurance partners will be announced soon"

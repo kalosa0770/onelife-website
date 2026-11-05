@@ -35,8 +35,7 @@ export const HOME_CONTENT = {
   hero: {
     headline:
       "We are a strategic partner assembling brand, events, trade intelligence, and digital delivery.",
-    backgroundImage:
-      "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069&auto=format&fit=crop",
+    backgroundImage: "/images/home/hero-creative-collaboration.jpg",
   },
   featureCards: [
     {
@@ -94,8 +93,7 @@ export const HOME_CONTENT = {
       description:
         "Market positioning, stakeholder alignment, reputation management, and multi-channel campaign architectures tailored for local and regional African contexts.",
       icon: "Compass",
-      image:
-        "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop",
+      image: "/images/home/strategic-communications.jpg",
       link: "/capabilities#communications",
     },
     {
@@ -105,8 +103,7 @@ export const HOME_CONTENT = {
       description:
         "Full-scale production of national-level dialogues, trade exhibitions, and proprietary summits with zero vendor fragmentation and single-point accountability.",
       icon: "Calendar",
-      image:
-        "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=800&auto=format&fit=crop",
+      image: "/images/home/community-event-south-africa.jpg",
       link: "/capabilities#events",
     },
     {
@@ -116,8 +113,7 @@ export const HOME_CONTENT = {
       description:
         "Proprietary corridor data, SME deal-readiness frameworks, and market link facilitation across Southern and Eastern African trade routes.",
       icon: "TrendingUp",
-      image:
-        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop",
+      image: "/images/home/cape-town-freight.jpg",
       link: "/capabilities#trade",
     },
     {
@@ -127,8 +123,7 @@ export const HOME_CONTENT = {
       description:
         "Delivered in partnership with Mélange Digital: high-velocity content creation, corporate performance marketing, and multimedia publishing.",
       icon: "Layers",
-      image:
-        "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800&auto=format&fit=crop",
+      image: "/images/home/lagos-creative-partners.jpg",
       link: "/capabilities#digital",
     },
   ] satisfies (CapabilityHomeCard & { id: string })[],

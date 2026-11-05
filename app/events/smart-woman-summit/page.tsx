@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { CalendarDays, MapPin } from "lucide-react";
 import { ButtonLink, Card, Section, SectionHeading, Prose } from "@/components/site/ui";
 import { ROSE, segments } from "./data";
+import { EventDetails } from "./_sections/EventDetails";
+import { Literacy } from "./_sections/Literacy";
+import { Register } from "./_sections/Register";
 
 export const metadata: Metadata = {
-  title: "About the Smart Woman Summit | Money Out Loud | OneLife",
+  title: "Smart Woman Summit ’27 | Money Out Loud | OneLife",
   description:
-    "Smart Woman Summit — Zambia's most established women's financial literacy platform, founded and run by OneLife. 2027 edition: Money Out Loud.",
+    "Smart Woman Summit — Zambia's most established women's financial literacy platform, founded and run by OneLife. 2027 edition: Money Out Loud, Saturday 13 March 2027, Lusaka.",
 };
 
-export default function SummitAboutPage() {
+export default function SummitPage() {
   return (
     <>
       <section className="relative overflow-hidden bg-charcoal px-4 py-16 text-white sm:px-8 lg:py-28">
@@ -28,13 +30,13 @@ export default function SummitAboutPage() {
             <span className="flex items-center gap-2"><MapPin className="h-4 w-4" style={{ color: "#F06595" }} />Lusaka</span>
           </div>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/events/smart-woman-summit/register">Register your interest</ButtonLink>
-            <ButtonLink href="/events/smart-woman-summit/2027" variant="outline-light">2027 event details</ButtonLink>
+            <ButtonLink href="#register">Register your interest</ButtonLink>
+            <ButtonLink href="#event" variant="outline-light">2027 event details</ButtonLink>
           </div>
         </div>
       </section>
 
-      <Section>
+      <Section id="about">
         <SectionHeading eyebrow="About the Summit" accent={ROSE} title="Zambia’s most established women’s financial literacy platform." />
         <Prose>
           <p>Smart Woman Summit is founded and run by OneLife, and 2027 is its 4th edition. Since 2023 it has brought women together to talk honestly about money — earning it, growing it, protecting it.</p>
@@ -72,11 +74,15 @@ export default function SummitAboutPage() {
         </div>
         <p className="mt-8 text-base font-medium">
           See yourself here?{" "}
-          <Link href="/events/smart-woman-summit/register" className="underline underline-offset-4" style={{ color: ROSE }}>
+          <a href="#register" className="underline underline-offset-4" style={{ color: ROSE }}>
             Register and tell us which one you are.
-          </Link>
+          </a>
         </p>
       </Section>
+
+      <Literacy />
+      <EventDetails />
+      <Register />
     </>
   );
 }
