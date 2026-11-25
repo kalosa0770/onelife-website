@@ -154,14 +154,16 @@ export const HeroCarousel = ({
         className="absolute inset-0 z-10 bg-gradient-to-b from-black/50 via-black/40 to-black/60"
       />
 
-      {/* Content: Static Headline + Carousel Word */}
-      <div className="relative z-20 flex h-full items-center justify-center px-6 sm:px-8 lg:px-10">
-        <div className="max-w-5xl text-center">
-          <div className="font-heading text-[clamp(2.2rem,6vw,4rem)] font-bold leading-tight tracking-tight text-white">
+      {/* Content: Bottom Left - Static Headline + Carousel Word */}
+      <div className="relative z-20 flex h-full flex-col justify-end px-6 pb-20 sm:px-8 sm:pb-24 lg:px-10 lg:pb-28">
+        <div className="max-w-4xl">
+          <div className="font-heading text-[clamp(2rem,5vw,3.8rem)] font-bold leading-tight tracking-tight text-white">
             {/* Static Part */}
-            <span>{staticHeadline}</span>
+            <div className="mb-2 sm:mb-3">
+              <span>{staticHeadline}</span>
+            </div>
             {/* Carousel Word */}
-            <div className="mt-4 inline-block">
+            <div>
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.span
                   key={`word-${current}`}
@@ -174,7 +176,7 @@ export const HeroCarousel = ({
                     y: { type: "spring", stiffness: 200, damping: 25 },
                     opacity: { duration: 0.4 },
                   }}
-                  className="inline-block min-w-[200px] text-onelife-red"
+                  className="inline-block min-w-[150px] text-onelife-red sm:min-w-[200px]"
                 >
                   {slide.word}
                 </motion.span>
@@ -186,7 +188,7 @@ export const HeroCarousel = ({
 
       {/* Slide Indicators - Bottom Center (No Arrows) */}
       {slides.length > 1 && (
-        <div className="absolute bottom-8 left-1/2 z-30 flex -translate-x-1/2 gap-2 sm:bottom-10">
+        <div className="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 gap-2 sm:bottom-8">
           {slides.map((_, idx) => (
             <motion.button
               key={idx}
