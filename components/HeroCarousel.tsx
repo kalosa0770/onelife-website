@@ -2,19 +2,23 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface HeroSlide {
-  headline: string;
+  word: string;
   backgroundImage: string;
 }
 
 interface HeroCarouselProps {
+  staticHeadline: string;
   slides: HeroSlide[];
   autoPlayInterval?: number;
 }
 
-export const HeroCarousel = ({ slides, autoPlayInterval = 8000 }: HeroCarouselProps) => {
+export const HeroCarousel = ({
+  staticHeadline,
+  slides,
+  autoPlayInterval = 5000,
+}: HeroCarouselProps) => {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -98,6 +102,21 @@ export const HeroCarousel = ({ slides, autoPlayInterval = 8000 }: HeroCarouselPr
     }),
   };
 
+  const wordVariants = {
+    enter: (dir: number) => ({
+      y: dir > 0 ? 20 : -20,
+      opacity: 0,
+    }),
+    center: {
+      y: 0,
+      opacity: 1,
+    },
+    exit: (dir: number) => ({
+      y: dir > 0 ? -20 : 20,
+      opacity: 0,
+    }),
+  };
+
   return (
     <section
       id="home"
@@ -132,58 +151,42 @@ export const HeroCarousel = ({ slides, autoPlayInterval = 8000 }: HeroCarouselPr
       {/* Dark Gradient Overlay */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 z-10 bg-gradient-to-b from-black/40 via-transparent to-black/60"
+        className="absolute inset-0 z-10 bg-gradient-to-b from-black/50 via-black/40 to-black/60"
       />
 
-      {/* Minimal Content: Centered Bold Headline in White Box */}
+      {/* Content: Static Headline + Carousel Word */}
       <div className="relative z-20 flex h-full items-center justify-center px-6 sm:px-8 lg:px-10">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`title-${current}`}
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -20 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-4xl"
-          >
-            <div className="rounded-xl bg-white/95 px-8 py-6 backdrop-blur-sm shadow-2xl sm:px-12 sm:py-8 lg:px-16 lg:py-10">
-              <h1 className="font-heading text-[clamp(1.8rem,5vw,3.2rem)] font-bold leading-tight tracking-tight text-charcoal">
-                {slide.headline}
-              </h1>
+        <div className="max-w-5xl text-center">
+          <div className="font-heading text-[clamp(2.2rem,6vw,4rem)] font-bold leading-tight tracking-tight text-white">
+            {/* Static Part */}
+            <span>{staticHeadline}</span>
+            {/* Carousel Word */}
+            <div className="mt-4 inline-block">
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.span
+                  key={`word-${current}`}
+                  custom={direction}
+                  variants={wordVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    y: { type: "spring", stiffness: 200, damping: 25 },
+                    opacity: { duration: 0.4 },
+                  }}
+                  className="inline-block min-w-[200px] text-onelife-red"
+                >
+                  {slide.word}
+                </motion.span>
+              </AnimatePresence>
             </div>
-          </motion.div>
-        </AnimatePresence>
+          </div>
+        </div>
       </div>
 
-      {/* Carousel Navigation - Left Arrow */}
+      {/* Slide Indicators - Bottom Center (No Arrows) */}
       {slides.length > 1 && (
-        <motion.button
-          onClick={handlePrev}
-          className="absolute left-4 top-1/2 z-30 -translate-y-1/2 rounded-full bg-white/30 p-3 text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/50 lg:left-8"
-          whileHover={{ scale: 1.15 }}
-          whileTap={{ scale: 0.95 }}
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </motion.button>
-      )}
-
-      {/* Carousel Navigation - Right Arrow */}
-      {slides.length > 1 && (
-        <motion.button
-          onClick={handleNext}
-          className="absolute right-4 top-1/2 z-30 -translate-y-1/2 rounded-full bg-white/30 p-3 text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/50 lg:right-8"
-          whileHover={{ scale: 1.15 }}
-          whileTap={{ scale: 0.95 }}
-          aria-label="Next slide"
-        >
-          <ChevronRight className="h-6 w-6" />
-        </motion.button>
-      )}
-
-      {/* Slide Indicators - Bottom Center */}
-      {slides.length > 1 && (
-        <div className="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 gap-2 sm:bottom-8">
+        <div className="absolute bottom-8 left-1/2 z-30 flex -translate-x-1/2 gap-2 sm:bottom-10">
           {slides.map((_, idx) => (
             <motion.button
               key={idx}
@@ -192,8 +195,8 @@ export const HeroCarousel = ({ slides, autoPlayInterval = 8000 }: HeroCarouselPr
                 setDirection(idx > current ? 1 : -1);
                 setCurrent(idx);
               }}
-              className={`h-2 rounded-full backdrop-blur-sm transition-all ${
-                idx === current ? "w-8 bg-white" : "w-2 bg-white/60 hover:bg-white/80"
+              className={`h-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
+                idx === current ? "w-8 bg-onelife-red" : "w-2 bg-white/50 hover:bg-white/70"
               }`}
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.95 }}

@@ -32,20 +32,20 @@ export const SITE_SETTINGS: SiteSettings = {
 export const HOME_CONTENT = {
   heroSlides: [
     {
-      headline: "We are a strategic partner assembling brand, events, trade intelligence, and digital delivery.",
-      backgroundImage: "/images/sws-opening-stage-01.jpg",
-    },
-    {
-      headline: "01. Strategic Communications & Brand",
-      backgroundImage: "/images/sws-women-leaders-01.jpg",
-    },
-    {
-      headline: "02. Flagship Summits & Events",
+      word: "events",
       backgroundImage: "/images/sws-panel-discussion-01.jpg",
     },
     {
-      headline: "03. Trade Intelligence",
+      word: "trade intelligence",
       backgroundImage: "/images/sws-networking-moment-01.jpg",
+    },
+    {
+      word: "digital delivery",
+      backgroundImage: "/images/sws-audience-engagement-01.jpg",
+    },
+    {
+      word: "communications and brand identity",
+      backgroundImage: "/images/sws-women-leaders-01.jpg",
     },
   ],
   featureCards: [

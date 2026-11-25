@@ -11,7 +11,11 @@ import { HOME_CONTENT, SITE_SETTINGS, TRACK_RECORD_CONTENT } from "@/lib/site/co
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-warm-white text-charcoal overflow-hidden">
-      <HeroCarousel slides={HOME_CONTENT.heroSlides} autoPlayInterval={8000} />
+      <HeroCarousel
+        staticHeadline="We are a strategic brand partner that assembles"
+        slides={HOME_CONTENT.heroSlides}
+        autoPlayInterval={5000}
+      />
       <FeaturedCards featureCards={HOME_CONTENT.featureCards} />
       <WhoWeAre content={HOME_CONTENT.whoWeAre} />
       <Capabilities intro={HOME_CONTENT.capabilitiesIntro} cards={HOME_CONTENT.capabilityCards} />
