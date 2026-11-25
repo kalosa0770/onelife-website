@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ArrowDownRight, ArrowRight } from "lucide-react";
+import { Slideshow } from "@/components/Slideshow";
 
 const introVariants: Variants = {
   hidden: { opacity: 0, y: 22 },
@@ -15,17 +16,33 @@ const introVariants: Variants = {
 
 interface HeroProps {
   headline: string;
-  backgroundImage: string;
+  backgroundImage: string | string[];
 }
 
 export const Hero = ({ headline, backgroundImage }: HeroProps) => {
+  const isSlideshow = Array.isArray(backgroundImage);
+  const images = isSlideshow ? backgroundImage : [backgroundImage];
+
   return (
     <section id="home" className="relative isolate min-h-[min(680px,calc(100svh-5rem))] scroll-mt-32 overflow-hidden bg-[#101112] text-white">
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-20 bg-cover bg-center"
-        style={{ backgroundImage: `url('${backgroundImage}')` }}
-      />
+      {/* Background Image/Slideshow */}
+      <div className="absolute inset-0 -z-20">
+        {isSlideshow ? (
+          <Slideshow
+            images={images}
+            interval={5000}
+            autoPlay={true}
+            className="h-full w-full"
+          />
+        ) : (
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url('${images[0]}')` }}
+          />
+        )}
+      </div>
+
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,11,12,0.94)_0%,rgba(10,11,12,0.78)_52%,rgba(10,11,12,0.33)_100%)]"

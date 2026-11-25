@@ -33,7 +33,13 @@ export const HOME_CONTENT = {
   hero: {
     headline:
       "We are a strategic partner assembling brand, events, trade intelligence, and digital delivery.",
-    backgroundImage: "/images/home/hero-creative-collaboration.jpg",
+    backgroundImage: [
+      "/images/sws-opening-stage-01.jpg",
+      "/images/sws-stage-energy-01.jpg",
+      "/images/sws-stage-moment-01.jpg",
+      "/images/sws-closing-moment-01.jpg",
+      "/images/sws-finale-celebration-01.jpg",
+    ],
   },
   featureCards: [
     {
@@ -91,7 +97,11 @@ export const HOME_CONTENT = {
       description:
         "Market positioning, stakeholder alignment, reputation management, and multi-channel campaign architectures tailored for local and regional African contexts.",
       icon: "Compass",
-      image: "/images/home/strategic-communications.jpg",
+      image: [
+        "/images/sws-women-leaders-01.jpg",
+        "/images/sws-women-leaders-02.jpg",
+        "/images/sws-women-focused-01.jpg",
+      ],
       link: "/capabilities#communications",
     },
     {
@@ -101,7 +111,13 @@ export const HOME_CONTENT = {
       description:
         "Full-scale production of national-level dialogues, trade exhibitions, and proprietary summits with zero vendor fragmentation and single-point accountability.",
       icon: "Calendar",
-      image: "/images/home/community-event-south-africa.jpg",
+      image: [
+        "/images/sws-panel-discussion-01.jpg",
+        "/images/sws-panel-discussion-02.jpg",
+        "/images/sws-keynote-speaker-01.jpg",
+        "/images/sws-keynote-speaker-02.jpg",
+        "/images/sws-stage-presentation-01.jpg",
+      ],
       link: "/capabilities#events",
     },
     {
@@ -111,7 +127,11 @@ export const HOME_CONTENT = {
       description:
         "Proprietary corridor data, SME deal-readiness frameworks, and market link facilitation across Southern and Eastern African trade routes.",
       icon: "TrendingUp",
-      image: "/images/home/cape-town-freight.jpg",
+      image: [
+        "/images/sws-women-discussion-01.jpg",
+        "/images/sws-panel-speakers-01.jpg",
+        "/images/sws-audience-engagement-01.jpg",
+      ],
       link: "/capabilities#trade",
     },
     {
@@ -121,7 +141,12 @@ export const HOME_CONTENT = {
       description:
         "Delivered in partnership with Mélange Digital: high-velocity content creation, corporate performance marketing, and multimedia publishing.",
       icon: "Layers",
-      image: "/images/home/lagos-creative-partners.jpg",
+      image: [
+        "/images/sws-networking-moment-01.jpg",
+        "/images/sws-networking-moment-02.jpg",
+        "/images/sws-networking-group-01.jpg",
+        "/images/sws-audience-moment-01.jpg",
+      ],
       link: "/capabilities#digital",
     },
   ] satisfies (CapabilityHomeCard & { id: string })[],

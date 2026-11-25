@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { ContentIcon } from "@/components/ContentIcon";
+import { Slideshow } from "@/components/Slideshow";
 import type {
   CapabilityHomeCard,
   CapabilitiesHomeIntro,
@@ -66,21 +67,39 @@ export const Capabilities = ({ intro, cards }: CapabilitiesProps) => {
           viewport={{ once: true, margin: "-100px" }}
         >
           {cards.map((item, index) => {
+            const isSlideshow = Array.isArray(item.image);
+            const imageArray: string[] = isSlideshow ? (item.image as string[]) : [item.image as string];
+            const singleImage = imageArray[0];
+
             return (
               <motion.div
                 key={item.id}
                 variants={cardVariants}
                 className="group relative flex min-h-[22rem] flex-col justify-end overflow-hidden border border-white/10 bg-[#1a1b1c] p-5 transition-colors duration-300 hover:border-onelife-red/70 sm:min-h-[24rem] sm:p-6"
               >
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
+                {isSlideshow ? (
+                  <div className="absolute inset-0 h-full w-full">
+                    <Slideshow
+                      images={imageArray}
+                      interval={6000}
+                      autoPlay={true}
+                      className="h-full w-full"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/10 transition-colors group-hover:from-black/90" />
+                  </div>
+                ) : (
+                  <>
+                    <Image
+                      src={singleImage}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
 
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/10 transition-colors group-hover:from-black/90" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/10 transition-colors group-hover:from-black/90" />
+                  </>
+                )}
 
                 <div className="relative z-10 flex h-full flex-col justify-end text-warm-white">
                   <div className="mb-5 flex items-center justify-between">

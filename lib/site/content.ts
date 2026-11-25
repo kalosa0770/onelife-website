@@ -13,7 +13,7 @@ export interface SiteSettings {
 
 export interface HeroContent {
   headline: string;
-  backgroundImage: string;
+  backgroundImage: string | string[];
 }
 
 export interface TrackRecordHome {
@@ -87,7 +87,7 @@ export interface CapabilityHomeCard {
   subtitle: string;
   description: string;
   icon: string;
-  image: string;
+  image: string | string[];
   link: string;
 }
 
