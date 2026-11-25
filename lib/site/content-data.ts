@@ -30,17 +30,24 @@ export const SITE_SETTINGS: SiteSettings = {
 };
 
 export const HOME_CONTENT = {
-  hero: {
-    headline:
-      "We are a strategic partner assembling brand, events, trade intelligence, and digital delivery.",
-    backgroundImage: [
-      "/images/sws-opening-stage-01.jpg",
-      "/images/sws-stage-energy-01.jpg",
-      "/images/sws-stage-moment-01.jpg",
-      "/images/sws-closing-moment-01.jpg",
-      "/images/sws-finale-celebration-01.jpg",
-    ],
-  },
+  heroSlides: [
+    {
+      headline: "We are a strategic partner assembling brand, events, trade intelligence, and digital delivery.",
+      backgroundImage: "/images/sws-opening-stage-01.jpg",
+    },
+    {
+      headline: "01. Strategic Communications & Brand",
+      backgroundImage: "/images/sws-women-leaders-01.jpg",
+    },
+    {
+      headline: "02. Flagship Summits & Events",
+      backgroundImage: "/images/sws-panel-discussion-01.jpg",
+    },
+    {
+      headline: "03. Trade Intelligence",
+      backgroundImage: "/images/sws-networking-moment-01.jpg",
+    },
+  ],
   featureCards: [
     {
       icon: "Award",

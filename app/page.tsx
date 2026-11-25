@@ -1,4 +1,4 @@
-import { Hero } from "@/components/Hero";
+import { HeroCarousel } from "@/components/HeroCarousel";
 import { WhoWeAre } from "@/components/WhoWeAre";
 import { Capabilities } from "@/components/Capabilities";
 import { Leadership } from "@/components/Leadership";
@@ -11,10 +11,7 @@ import { HOME_CONTENT, SITE_SETTINGS, TRACK_RECORD_CONTENT } from "@/lib/site/co
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-warm-white text-charcoal overflow-hidden">
-      <Hero
-        headline={HOME_CONTENT.hero.headline}
-        backgroundImage={HOME_CONTENT.hero.backgroundImage}
-      />
+      <HeroCarousel slides={HOME_CONTENT.heroSlides} autoPlayInterval={8000} />
       <FeaturedCards featureCards={HOME_CONTENT.featureCards} />
       <WhoWeAre content={HOME_CONTENT.whoWeAre} />
       <Capabilities intro={HOME_CONTENT.capabilitiesIntro} cards={HOME_CONTENT.capabilityCards} />

@@ -16,6 +16,20 @@ export interface HeroContent {
   backgroundImage: string | string[];
 }
 
+export interface HeroSlide {
+  headline: string;
+  backgroundImage: string;
+  tagline: string;
+  primaryCta: {
+    label: string;
+    href: string;
+  };
+  secondaryCta: {
+    label: string;
+    href: string;
+  };
+}
+
 export interface TrackRecordHome {
   backgroundImage: string;
 }
