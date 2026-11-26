@@ -1,36 +1,23 @@
 "use client";
 
-import React from "react";
+import React, { useCallback, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, type Variants } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 import { ContentIcon } from "@/components/ContentIcon";
-import { Slideshow } from "@/components/Slideshow";
 import type {
   CapabilityHomeCard,
   CapabilitiesHomeIntro,
   WithId,
 } from "@/lib/site/content";
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
-    },
-  },
-};
+const EASE = [0.22, 1, 0.36, 1] as const;
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
+const textVariants: Variants = {
+  enter: (dir: number) => ({ opacity: 0, x: dir * 48 }),
+  center: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } },
+  exit: (dir: number) => ({ opacity: 0, x: dir * -48, transition: { duration: 0.35, ease: EASE } }),
 };
 
 interface CapabilitiesProps {
@@ -39,12 +26,37 @@ interface CapabilitiesProps {
 }
 
 export const Capabilities = ({ intro, cards }: CapabilitiesProps) => {
+  const count = cards.length;
+  const [[index, direction], setSlide] = useState<[number, number]>([0, 1]);
+  const [userPaused, setUserPaused] = useState(false);
+  const [interacting, setInteracting] = useState(false);
+  const isPaused = userPaused || interacting;
+
+  const goTo = useCallback(
+    (target: number, dir?: number) => {
+      setSlide(([current]) => {
+        const next = (target + count) % count;
+        return [next, dir ?? (next > current ? 1 : -1)];
+      });
+    },
+    [count],
+  );
+
+  const next = useCallback(() => goTo(index + 1, 1), [goTo, index]);
+  const prev = useCallback(() => goTo(index - 1, -1), [goTo, index]);
+
+  if (count === 0) return null;
+
+  const active = cards[index];
+  const image = Array.isArray(active.image) ? active.image[0] : active.image;
+
   return (
     <section
       id="capabilities"
       className="relative scroll-mt-32 overflow-hidden bg-[#101112] px-4 py-20 text-white sm:px-8 md:py-28"
     >
       <div className="mx-auto max-w-7xl">
+        {/* Intro */}
         <div className="mb-10 grid grid-cols-1 items-end gap-5 sm:mb-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-7">
             <span className="mb-3 block text-xs font-heading font-semibold uppercase tracking-[0.2em] text-onelife-red">
@@ -59,84 +71,173 @@ export const Capabilities = ({ intro, cards }: CapabilitiesProps) => {
           </p>
         </div>
 
-        <motion.div
-          className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+        {/* Slider */}
+        <div
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Capabilities"
+          onMouseEnter={() => setInteracting(true)}
+          onMouseLeave={() => setInteracting(false)}
+          onFocus={() => setInteracting(true)}
+          onBlur={(e) => {
+            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setInteracting(false);
+          }}
         >
-          {cards.map((item, index) => {
-            const isSlideshow = Array.isArray(item.image);
-            const imageArray: string[] = isSlideshow ? (item.image as string[]) : [item.image as string];
-            const singleImage = imageArray[0];
-
-            return (
+          {/* Stage */}
+          <div className="relative h-[34rem] overflow-hidden border border-white/10 bg-[#1a1b1c] sm:h-[30rem] lg:h-[34rem]">
+            <AnimatePresence initial={false}>
               <motion.div
-                key={item.id}
-                variants={cardVariants}
-                className="group relative flex min-h-[22rem] flex-col justify-end overflow-hidden border border-white/10 bg-[#1a1b1c] p-5 transition-colors duration-300 hover:border-onelife-red/70 sm:min-h-[24rem] sm:p-6"
+                key={active.id}
+                className="absolute inset-0"
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1, transition: { duration: 0.9, ease: EASE } }}
+                exit={{ opacity: 0, transition: { duration: 0.6 } }}
               >
-                {isSlideshow ? (
-                  <div className="absolute inset-0 h-full w-full">
-                    <Slideshow
-                      images={imageArray}
-                      interval={6000}
-                      autoPlay={true}
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/10 transition-colors group-hover:from-black/90" />
-                  </div>
-                ) : (
-                  <>
-                    <Image
-                      src={singleImage}
-                      alt={item.title}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
+                <Image
+                  src={image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 1280px) 100vw, 1280px"
+                  className="object-cover"
+                />
+              </motion.div>
+            </AnimatePresence>
 
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/10 transition-colors group-hover:from-black/90" />
-                  </>
-                )}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/20 lg:bg-gradient-to-r lg:from-black/95 lg:via-black/65 lg:to-black/5" />
 
-                <div className="relative z-10 flex h-full flex-col justify-end text-warm-white">
-                  <div className="mb-5 flex items-center justify-between">
-                    <span className="flex h-10 w-10 items-center justify-center border border-white/25 bg-white/10 backdrop-blur-sm transition-colors group-hover:border-onelife-red group-hover:bg-onelife-red">
-                      <ContentIcon
-                        name={item.icon}
-                        className="h-5 w-5 text-warm-white"
-                        strokeWidth={2}
-                      />
+            {/* Controls */}
+            <div className="absolute right-4 top-4 z-20 flex items-center gap-2 sm:right-6 sm:top-6">
+              <button
+                type="button"
+                onClick={() => setUserPaused((p) => !p)}
+                aria-label={userPaused ? "Resume slideshow" : "Pause slideshow"}
+                className="capability-motion-control flex h-10 w-10 items-center justify-center border border-white/25 bg-black/30 backdrop-blur-sm transition-colors hover:border-onelife-red hover:bg-onelife-red"
+              >
+                {userPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+              </button>
+              <button
+                type="button"
+                onClick={prev}
+                aria-label="Previous capability"
+                className="flex h-10 w-10 items-center justify-center border border-white/25 bg-black/30 backdrop-blur-sm transition-colors hover:border-onelife-red hover:bg-onelife-red"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={next}
+                aria-label="Next capability"
+                className="flex h-10 w-10 items-center justify-center border border-white/25 bg-black/30 backdrop-blur-sm transition-colors hover:border-onelife-red hover:bg-onelife-red"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Slide content (swipeable) */}
+            <motion.div
+              id="capability-slide"
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${index + 1} of ${count}: ${active.title}`}
+              className="absolute inset-0 z-10 flex cursor-grab items-end p-6 active:cursor-grabbing sm:p-10 lg:items-center lg:p-14"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.15}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -60) next();
+                else if (info.offset.x > 60) prev();
+              }}
+            >
+              <AnimatePresence mode="wait" custom={direction} initial={false}>
+                <motion.div
+                  key={active.id}
+                  custom={direction}
+                  variants={textVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  className="max-w-xl text-warm-white"
+                >
+                  <div className="mb-6 flex items-center gap-4">
+                    <span className="flex h-12 w-12 items-center justify-center bg-onelife-red">
+                      <ContentIcon name={active.icon} className="h-6 w-6 text-warm-white" strokeWidth={2} />
                     </span>
-                    <span className="font-heading text-xs font-medium tracking-widest text-white/55">0{index + 1}</span>
+                    <span className="font-heading text-xs font-medium tracking-widest text-white/60">
+                      {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
+                    </span>
                   </div>
 
-                  <span className="mb-1 block text-xs font-heading font-semibold uppercase tracking-wider text-white/75">
-                    {item.subtitle}
+                  <span className="mb-2 block text-xs font-heading font-semibold uppercase tracking-wider text-white/75">
+                    {active.subtitle}
                   </span>
-
-                  <h3 className="mb-2 font-heading text-lg font-bold leading-snug text-warm-white">
-                    {item.title}
+                  <h3 className="mb-4 font-heading text-2xl font-bold leading-tight text-warm-white sm:text-3xl lg:text-4xl">
+                    {active.title}
                   </h3>
-
-                  <p className="mb-5 line-clamp-3 text-sm leading-relaxed text-white/85">
-                    {item.description}
+                  <p className="mb-7 text-sm leading-relaxed text-white/85 sm:text-base">
+                    {active.description}
                   </p>
 
                   <Link
-                    href={item.link}
-                    className="inline-flex min-h-8 items-center gap-2 text-xs font-heading font-bold uppercase tracking-wider text-white transition-colors hover:text-onelife-red"
+                    href={active.link}
+                    className="group inline-flex min-h-11 items-center gap-2 border border-white/25 px-5 py-2.5 text-xs font-heading font-bold uppercase tracking-wider text-white transition-colors hover:border-onelife-red hover:bg-onelife-red"
                   >
                     <span>Explore</span>
-                    <ArrowRight className="h-4 w-4 text-onelife-red transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
+          </div>
+
+          {/* Tabs with progress bar (drives autoplay) */}
+          <div
+            role="tablist"
+            aria-label="Choose a capability"
+            className="grid grid-cols-2 gap-px border-x border-b border-white/10 bg-white/10 lg:grid-cols-4"
+          >
+            {cards.map((card, i) => {
+              const isActive = i === index;
+              return (
+                <button
+                  key={card.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls="capability-slide"
+                  onClick={() => goTo(i)}
+                  className={`relative bg-[#101112] px-4 py-4 text-left transition-colors sm:px-5 sm:py-5 ${
+                    isActive ? "bg-[#1a1b1c]" : "hover:bg-[#161718]"
+                  }`}
+                >
+                  <span className="absolute inset-x-0 top-0 h-0.5 overflow-hidden bg-white/10">
+                    {isActive && (
+                      <span
+                        key={`${card.id}-${index}`}
+                        className="capability-progress block h-full origin-left bg-onelife-red"
+                        data-paused={isPaused}
+                        onAnimationEnd={next}
+                      />
+                    )}
+                  </span>
+                  <span
+                    className={`mb-1 block font-heading text-xs tracking-widest ${
+                      isActive ? "text-onelife-red" : "text-white/40"
+                    }`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={`block font-heading text-xs font-semibold leading-snug sm:text-sm ${
+                      isActive ? "text-white" : "text-white/60"
+                    }`}
+                  >
+                    {card.title}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
         {/* View All Capabilities CTA */}
         <div className="mt-10 text-center sm:mt-12">

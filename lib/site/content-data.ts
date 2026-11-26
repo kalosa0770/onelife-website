@@ -7,6 +7,7 @@ import type {
   FourPhaseStep,
   HeroFeatureCard,
   ImperfectPhilosophy,
+  InstitutionalHeroContent,
   LeadershipAllianceIntro,
   MissionVisionCard,
   SiteSettings,
@@ -21,30 +22,44 @@ export const SITE_SETTINGS: SiteSettings = {
   address: "Lusaka, Zambia",
   email: "info@onelife.co.zm",
   phone: "+260 961 888 009",
-  linkedinUrl: "https://linkedin.com",
-  xUrl: "https://x.com",
-  instagramUrl: "https://instagram.com",
+  linkedinUrl: "https://www.linkedin.com/company/onelife",   // ← replace with real URL
+  facebookUrl: "https://www.facebook.com/onelife",           // ← replace with real URL
+  instagramUrl: "https://www.instagram.com/onelife",         // ← replace with real URL
   footerBrandBlurb:
     "One strategic partner assembling brand, events, trade intelligence, and digital delivery. 14 years of regional execution across Zambia and SADC-COMESA.",
   copyrightText: "© 2026 OneLife Communications & Events Company. All rights reserved.",
 };
 
+export const INSTITUTIONAL_HERO_CONTENT: InstitutionalHeroContent = {
+  headline: "One accountable partner for brands, events & trade intelligence across Africa.",
+  subheadline:
+    "14+ years of regional execution, assembled around your challenge — not a rigid agency menu.",
+  primaryCta: { label: "Explore our work", href: "/capabilities" },
+  secondaryCta: { label: "Start a conversation", href: "/contact" },
+  images: [
+    "/images/sws-women-focused-01.jpg",
+    "/images/sws-women-leaders-01.jpg",
+    "/images/sws-panel-discussion-01.jpg",
+    "/images/sws-networking-moment-01.jpg",
+  ],
+};
+
 export const HOME_CONTENT = {
   heroSlides: [
     {
-      word: "events",
+      word: "Assembles Events",
       backgroundImage: "/images/sws-panel-discussion-01.jpg",
     },
     {
-      word: "trade intelligence",
+      word: "Assembles Trade Intelligence",
       backgroundImage: "/images/sws-networking-moment-01.jpg",
     },
     {
-      word: "digital delivery",
+      word: "Assembles Digital Delivery",
       backgroundImage: "/images/sws-audience-engagement-01.jpg",
     },
     {
-      word: "communications and brand identity",
+      word: "Assembles Brand Identity",
       backgroundImage: "/images/sws-women-leaders-01.jpg",
     },
   ],

@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 interface SlideshowProps {
   images: string[];
   interval?: number;
   className?: string;
   autoPlay?: boolean;
+  /** Show clickable dots. Off by default because in the Hero the overlays sit above this component. */
+  showDots?: boolean;
 }
 
 export const Slideshow = ({
@@ -15,124 +17,67 @@ export const Slideshow = ({
   interval = 5000,
   className = "",
   autoPlay = true,
+  showDots = false,
 }: SlideshowProps) => {
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (!autoPlay || images.length <= 1) return;
+    if (!autoPlay || reduceMotion || images.length <= 1) return;
 
     const timer = setInterval(() => {
-      setDirection(1);
       setCurrent((prev) => (prev + 1) % images.length);
     }, interval);
 
     return () => clearInterval(timer);
-  }, [autoPlay, images.length, interval]);
-
-  const slideVariants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? 1000 : -1000,
-      opacity: 0,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-    },
-    exit: (dir: number) => ({
-      zIndex: 0,
-      x: dir > 0 ? -1000 : 1000,
-      opacity: 0,
-    }),
-  };
-
-  const handleNext = () => {
-    setDirection(1);
-    setCurrent((prev) => (prev + 1) % images.length);
-  };
-
-  const handlePrev = () => {
-    setDirection(-1);
-    setCurrent((prev) => (prev - 1 + images.length) % images.length);
-  };
+  }, [autoPlay, reduceMotion, images.length, interval]);
 
   if (images.length === 0) return null;
 
   return (
     <div className={`relative w-full overflow-hidden ${className}`}>
-      <AnimatePresence initial={false} custom={direction} mode="wait">
-        <motion.div
-          key={current}
-          custom={direction}
-          variants={slideVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{
-            x: { type: "spring", stiffness: 300, damping: 30 },
-            opacity: { duration: 0.5 },
-          }}
-          className="absolute inset-0"
-        >
-          <img
-            src={images[current]}
-            alt={`Slide ${current + 1}`}
-            className="h-full w-full object-cover"
+      {/* All slides stay mounted and stacked, so they are preloaded and crossfade with no blank gap */}
+      {images.map((src, idx) => {
+        const active = idx === current;
+        return (
+          <motion.img
+            key={src + idx}
+            src={src}
+            alt=""
+            aria-hidden="true"
+            loading={idx === 0 ? "eager" : "lazy"}
+            className="absolute inset-0 h-full w-full object-cover"
+            initial={false}
+            animate={{
+              opacity: active ? 1 : 0,
+              scale: reduceMotion ? 1 : active ? 1.06 : 1,
+            }}
+            transition={{
+              opacity: { duration: 1.2, ease: "easeInOut" },
+              // Slow, subtle zoom while a slide is visible
+              scale: { duration: active ? interval / 1000 + 1.2 : 0, ease: "linear" },
+            }}
           />
-        </motion.div>
-      </AnimatePresence>
+        );
+      })}
 
-      {/* Navigation Dots */}
-      {images.length > 1 && (
-        <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+      {showDots && images.length > 1 && (
+        <div className="absolute bottom-6 right-6 z-10 flex gap-2">
           {images.map((_, idx) => (
-            <motion.button
+            <button
               key={idx}
-              onClick={() => {
-                setDirection(idx > current ? 1 : -1);
-                setCurrent(idx);
-              }}
-              className={`h-2 rounded-full transition-all ${
+              type="button"
+              onClick={() => setCurrent(idx)}
+              className={`h-2 rounded-full transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
                 idx === current
                   ? "w-8 bg-white"
                   : "w-2 bg-white/50 hover:bg-white/75"
               }`}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.95 }}
               aria-label={`Go to slide ${idx + 1}`}
+              aria-current={idx === current}
             />
           ))}
         </div>
-      )}
-
-      {/* Navigation Arrows */}
-      {images.length > 1 && (
-        <>
-          <motion.button
-            onClick={handlePrev}
-            className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white backdrop-blur-sm transition-colors hover:bg-black/60"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Previous slide"
-          >
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </motion.button>
-
-          <motion.button
-            onClick={handleNext}
-            className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white backdrop-blur-sm transition-colors hover:bg-black/60"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Next slide"
-          >
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </motion.button>
-        </>
       )}
     </div>
   );

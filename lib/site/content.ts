@@ -5,7 +5,7 @@ export interface SiteSettings {
   email: string;
   phone: string;
   linkedinUrl: string;
-  xUrl: string;
+  facebookUrl: string;
   instagramUrl: string;
   footerBrandBlurb: string;
   copyrightText: string;
@@ -14,6 +14,19 @@ export interface SiteSettings {
 export interface HeroContent {
   headline: string;
   backgroundImage: string | string[];
+}
+
+export interface HeroCtaLink {
+  label: string;
+  href: string;
+}
+
+export interface InstitutionalHeroContent {
+  headline: string;
+  subheadline: string;
+  primaryCta: HeroCtaLink;
+  secondaryCta: HeroCtaLink;
+  images: string[];
 }
 
 export interface HeroSlide {

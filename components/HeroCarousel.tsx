@@ -148,22 +148,22 @@ export const HeroCarousel = ({
         </motion.div>
       </AnimatePresence>
 
-      {/* Dark Gradient Overlay */}
+      {/* Dark Gradient Overlay - Darker */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 z-10 bg-gradient-to-b from-black/50 via-black/40 to-black/60"
+        className="absolute inset-0 z-10 bg-gradient-to-b from-black/60 via-black/50 to-black/80"
       />
 
       {/* Content: Bottom Left - Static Headline + Carousel Word */}
-      <div className="relative z-20 flex h-full flex-col justify-end px-6 pb-20 sm:px-8 sm:pb-24 lg:px-10 lg:pb-28">
-        <div className="max-w-4xl">
-          <div className="font-heading text-[clamp(2rem,5vw,3.8rem)] font-bold leading-tight tracking-tight text-white">
+      <div className="relative z-20 flex h-full flex-col justify-center items-center mt-30 px-6 pt-20 sm:px-8 sm:pt-24 lg:px-10 lg:pt-28">
+        <div className="max-w-4xl text-center">
+          <div className="font-heading text-[clamp(1.7rem,2.7vw,2.8rem)] font-semibold leading-tight tracking-tight text-white">
             {/* Static Part */}
             <div className="mb-2 sm:mb-3">
               <span>{staticHeadline}</span>
             </div>
             {/* Carousel Word */}
-            <div>
+            <div className="flex justify-center">
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.span
                   key={`word-${current}`}

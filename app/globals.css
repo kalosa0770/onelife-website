@@ -78,6 +78,30 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@keyframes capability-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.capability-progress {
+  animation: capability-progress 7s linear forwards;
+}
+
+.capability-progress[data-paused="true"] {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capability-progress {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  .capability-motion-control {
+    display: none;
+  }
+}
+
 .track-record-track {
   width: max-content;
 }

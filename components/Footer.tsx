@@ -2,94 +2,104 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Mail, ArrowUpRight } from "lucide-react";
+import { MapPin, Mail, Phone, ArrowRight, ArrowUp } from "lucide-react";
 import { HOME_NAV_ITEMS } from "@/lib/site/nav";
 import { SITE_SETTINGS } from "@/lib/site/content-data";
 import { SocialLinks } from "@/components/site/SocialLinks";
 
 export const Footer = () => {
-  return (
-    <footer className="bg-charcoal px-4 pb-8 pt-16 text-white sm:px-8">
-      <div className="mx-auto max-w-7xl">
-        <section aria-labelledby="partners-heading" className="mb-12 border-b border-white/10 pb-12">
-          <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
-            <div className="lg:col-span-5">
-              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-onelife-red">In good company</p>
-              <h2 id="partners-heading" className="font-heading text-2xl font-semibold text-white">
-                Our Partners
-              </h2>
-              <p className="mt-3 max-w-md text-sm leading-relaxed text-white/65">
-                Our creative delivery partner, extending production, digital distribution and multi-market media capability across our campaigns and platforms.
-              </p>
-            </div>
-            <a
-              href="https://melangedigital.co/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Mélange Digital, creative delivery partner (opens in a new tab)"
-              className="group flex flex-col gap-5 rounded-xl bg-white p-6 shadow-lg transition hover:shadow-2xl sm:flex-row sm:items-center sm:justify-between lg:col-span-7 lg:px-10"
-            >
-              <Image
-                src="/logo-melange.png"
-                alt="Mélange Digital"
-                width={774}
-                height={192}
-                className="h-14 w-auto self-start sm:h-16"
-              />
-              <span className="inline-flex items-center gap-2 font-heading text-xs font-semibold uppercase tracking-wider text-charcoal">
-                Visit melangedigital.co
-                <ArrowUpRight className="h-4 w-4 text-onelife-red transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </span>
-            </a>
-          </div>
-        </section>
+  const phoneHref = SITE_SETTINGS.phone ? `tel:${SITE_SETTINGS.phone.replace(/\s+/g, "")}` : "";
 
-        <div className="grid grid-cols-1 gap-12 border-b border-white/10 pb-12 md:grid-cols-2 lg:grid-cols-4">
-          <div className="space-y-5 lg:col-span-2">
+  return (
+    <footer className="relative overflow-hidden bg-[#0B0B0C] px-4 pb-8 pt-16 text-white sm:px-8 sm:pt-20">
+      {/* Soft red glow, echoing the Leadership section */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-40 top-0 h-[28rem] w-[28rem] rounded-full bg-onelife-red/10 blur-3xl"
+      />
+
+      <div className="relative mx-auto max-w-7xl">
+        {/* Columns */}
+        <div className="grid grid-cols-1 gap-12 border-b border-white/10 pb-12 sm:grid-cols-2 lg:grid-cols-12">
+          {/* Brand */}
+          <div className="space-y-5 sm:col-span-2 lg:col-span-5">
             <span className="inline-block rounded bg-white p-2">
               <Image src="/logo-onelife.jpg" alt="OneLife" width={120} height={32} className="h-8 w-auto" />
             </span>
             {SITE_SETTINGS.footerBrandBlurb && (
-              <p className="max-w-sm text-sm leading-relaxed text-white/65">{SITE_SETTINGS.footerBrandBlurb}</p>
+              <p className="max-w-sm text-sm leading-relaxed text-white/60">{SITE_SETTINGS.footerBrandBlurb}</p>
             )}
-            <div className="space-y-2 text-sm text-white/65">
-              {SITE_SETTINGS.address && (
-                <p className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 shrink-0 text-onelife-red" />
-                  {SITE_SETTINGS.address}
-                </p>
-              )}
+            <SocialLinks siteSettings={SITE_SETTINGS} className="gap-4 text-white/60" />
+          </div>
+
+          {/* Navigation */}
+          <nav aria-label="Footer" className="lg:col-span-4">
+            <h3 className="mb-5 font-heading text-xs font-semibold uppercase tracking-[0.18em] text-white">
+              Explore OneLife
+            </h3>
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm text-white/60">
+              {HOME_NAV_ITEMS.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="transition-colors hover:text-white">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Contact */}
+          <div className="lg:col-span-3">
+            <h3 className="mb-5 font-heading text-xs font-semibold uppercase tracking-[0.18em] text-white">
+              Get in touch
+            </h3>
+            <ul className="space-y-3 text-sm text-white/60">
               {SITE_SETTINGS.email && (
-                <p className="flex items-center gap-2">
+                <li className="flex items-center gap-3">
                   <Mail className="h-4 w-4 shrink-0 text-onelife-red" />
                   <a href={`mailto:${SITE_SETTINGS.email}`} className="transition-colors hover:text-white">
                     {SITE_SETTINGS.email}
                   </a>
-                </p>
+                </li>
               )}
-            </div>
-            <SocialLinks siteSettings={SITE_SETTINGS} className="gap-4 text-white/65" />
-          </div>
-
-          <div className="lg:col-span-2">
-              <h3 className="mb-4 font-heading text-xs font-semibold uppercase tracking-wider text-white">
-                Explore OneLife
-              </h3>
-              <ul className="grid gap-x-8 gap-y-2.5 text-sm text-white/65 sm:grid-cols-2">
-                {HOME_NAV_ITEMS.map((item) => (
-                  <li key={item.href}>
-                    <Link href={item.href} className="transition-colors hover:text-white">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              {SITE_SETTINGS.phone && (
+                <li className="flex items-center gap-3">
+                  <Phone className="h-4 w-4 shrink-0 text-onelife-red" />
+                  <a href={phoneHref} className="transition-colors hover:text-white">
+                    {SITE_SETTINGS.phone}
+                  </a>
+                </li>
+              )}
+              {SITE_SETTINGS.address && (
+                <li className="flex items-center gap-3">
+                  <MapPin className="h-4 w-4 shrink-0 text-onelife-red" />
+                  {SITE_SETTINGS.address}
+                </li>
+              )}
+            </ul>
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-3 pt-6 text-xs text-white/50 sm:flex-row">
-          <p>{SITE_SETTINGS.copyrightText || `© ${new Date().getFullYear()} OneLife Communications & Events Company`}</p>
-          <p className="italic">Not a perfect circle.</p>
+        {/* Bottom bar */}
+        <div className="flex flex-col items-center justify-between gap-4 pt-6 text-xs text-white/45 sm:flex-row">
+          <p>
+            {SITE_SETTINGS.copyrightText ||
+              `© ${new Date().getFullYear()} OneLife Communications & Events Company`}
+          </p>
+          <div className="flex items-center gap-6">
+            <p className="italic">Not a perfect circle.</p>
+            <a
+              href="#top"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              aria-label="Back to top"
+              className="flex h-9 w-9 items-center justify-center border border-white/15 text-white/70 transition-colors hover:border-onelife-red hover:bg-onelife-red hover:text-white"
+            >
+              <ArrowUp className="h-4 w-4" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
