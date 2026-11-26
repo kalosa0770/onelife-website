@@ -33,10 +33,20 @@ const InstagramIcon = ({ className }: IconProps) => (
 
 interface SocialLinksProps {
   siteSettings: SiteSettings;
+  /** Classes for the <ul> wrapper (gap, text colour, etc.) */
   className?: string;
+  /** Classes for each icon (size). Defaults to h-4 w-4. */
+  iconClassName?: string;
+  /** Hover classes for each link. If omitted, links render as boxed buttons (footer style). */
+  hoverClassName?: string;
 }
 
-export const SocialLinks = ({ siteSettings, className = "" }: SocialLinksProps) => {
+export const SocialLinks = ({
+  siteSettings,
+  className = "",
+  iconClassName = "h-4 w-4",
+  hoverClassName,
+}: SocialLinksProps) => {
   const links = [
     { label: "LinkedIn", href: siteSettings.linkedinUrl, Icon: LinkedInIcon },
     { label: "Facebook", href: siteSettings.facebookUrl, Icon: FacebookIcon },
@@ -44,6 +54,11 @@ export const SocialLinks = ({ siteSettings, className = "" }: SocialLinksProps) 
   ].filter((link) => Boolean(link.href));
 
   if (links.length === 0) return null;
+
+  // Navbar passes hoverClassName → plain icons. Footer doesn't → boxed buttons.
+  const linkClass = hoverClassName
+    ? `inline-flex items-center justify-center transition-colors ${hoverClassName}`
+    : "flex h-10 w-10 items-center justify-center border border-white/15 transition-colors hover:border-onelife-red hover:bg-onelife-red hover:text-white";
 
   return (
     <ul className={`flex items-center ${className}`}>
@@ -54,9 +69,9 @@ export const SocialLinks = ({ siteSettings, className = "" }: SocialLinksProps) 
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`OneLife on ${label} (opens in a new tab)`}
-            className="flex h-10 w-10 items-center justify-center border border-white/15 transition-colors hover:border-onelife-red hover:bg-onelife-red hover:text-white"
+            className={linkClass}
           >
-            <Icon className="h-4 w-4" />
+            <Icon className={iconClassName} />
           </a>
         </li>
       ))}
